@@ -16,8 +16,6 @@ import androidx.compose.ui.unit.dp
 @Composable
 public fun ThinkingOrbGallery(
     modifier: Modifier = Modifier,
-    size: OrbSize = OrbSize.Large,
-    theme: OrbTheme = OrbTheme.Auto,
     speed: Float = 1f,
     dotColorOverride: Color? = null,
     backgroundOverride: Color? = null,
@@ -33,14 +31,7 @@ public fun ThinkingOrbGallery(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.padding(8.dp),
             ) {
-                ThinkingOrb(
-                    state = state,
-                    size = size,
-                    theme = theme,
-                    speed = speed,
-                    dotColorOverride = dotColorOverride,
-                    backgroundOverride = backgroundOverride,
-                )
+
                 Text(text = state.name)
             }
         }

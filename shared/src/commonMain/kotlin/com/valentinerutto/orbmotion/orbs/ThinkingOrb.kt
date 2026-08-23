@@ -1,79 +1,49 @@
 package com.valentinerutto.orbmotion.orbs
 
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.role
-import androidx.compose.ui.semantics.semantics
-import com.valentinerutto.orbmotion.util.drawOrbState
-import com.valentinerutto.orbmotion.util.rememberOrbPhase
-
-
-
+import androidx.compose.ui.graphics.drawscope.Stroke
+import com.example.orbs.engine.FrameDispatcher
 
 @Composable
 fun ThinkingOrb(
-    state: OrbState,
     modifier: Modifier = Modifier,
-    size: OrbSize = OrbSize.Large,
-    theme: OrbTheme = OrbTheme.Light ,
+    state: OrbState = OrbState.CONNECTING,
+    size: Float = 64f,
     speed: Float = 1f,
-    paused: Boolean = false,
-    reducedMotion: Boolean = false,
-    contentDescription: String? = null,
-    dotColorOverride: Color? = null,
-    backgroundOverride: Color? = null,
+    elapsedSeconds: Float,
+    color: Color = Color.White
 ) {
-
-    val dark = when (theme) {
-        OrbTheme.Auto -> isSystemInDarkTheme()
-        OrbTheme.Dark -> true
-        OrbTheme.Light -> false
+    val frame = remember(state, size, speed, elapsedSeconds) {
+        FrameDispatcher.frameForState(
+            state = state,
+            size = size,
+            t = elapsedSeconds,
+            speedMultiplier = speed
+        )
     }
 
-
-    val themeBg = backgroundOverride ?: MaterialTheme.colorScheme.background
-    val themeDot = dotColorOverride ?: MaterialTheme.colorScheme.primary
-
-    val dotColor = if (dark) themeDot else themeDot
-    val dotRadiusRatio = when (size) { OrbSize.Small -> 0.024f; is OrbSize.Custom -> 0.033f; OrbSize.Large -> 0.045f }
-
-
-    val animatedPhase = rememberOrbPhase(
-        periodMillis = state.basePeriodMillis,
-        speed = speed,
-        paused = paused || reducedMotion,
-    )
-
-    val renderPhase = if (reducedMotion) state.staticPhase else animatedPhase
-    val accessibilityDescription = contentDescription ?: state.defaultDescription
-
-    Canvas(
-        modifier = modifier.size(size.dp).semantics {
-            role = Role.Image
-            this.contentDescription = accessibilityDescription
+    Canvas(modifier = modifier) {
+        frame.lines.forEach { line ->
+            drawLine(
+                color = color.copy(alpha = line.alpha),
+                start = Offset(line.x1, line.y1),
+                end = Offset(line.x2, line.y2),
+                strokeWidth = line.w,
+                cap = Stroke.DefaultCap
+            )
         }
-    ) {
 
-        drawOrbState(state = state,phase = renderPhase, color= dotColor, dotCount = size.dotCount, dotRadiusRatio = size.dotRadiusRatio)
-
+        frame.dots.forEach { dot ->
+            drawCircle(
+                color = color.copy(alpha = dot.alpha),
+                radius = dot.r,
+                center = Offset(dot.x, dot.y)
+            )
+        }
     }
-
 }
-private val LightDot = Color(0xFFECECEC)
-private val DarkDot = Color(0xFF1A1A1A)
