@@ -1,6 +1,7 @@
 package com.valentinerutto.orbmotion.orbs
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -15,11 +16,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.Button
-import androidx.compose.material3.Divider
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -40,6 +44,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 
 /**
@@ -49,8 +54,8 @@ import kotlinx.coroutines.delay
 @Composable
 public fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
     var elapsed by remember { mutableFloatStateOf(0f) }
-    var selectedState by remember { mutableStateOf(OrbState.CONNECTING) }
-    var orbSize by remember { mutableFloatStateOf(180f) }
+    var selectedState by remember { mutableStateOf(OrbState.SEARCHING) }
+    var orbSize by remember { mutableFloatStateOf(360f) }
     var speed by remember { mutableFloatStateOf(1f) }
     var orbColor by remember { mutableStateOf(Color.White) }
     var darkTheme by remember { mutableStateOf(true) }
@@ -66,8 +71,13 @@ public fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
     }
 
     val clipboard = LocalClipboardManager.current
-
-       val background = if (darkTheme) Color(0xFF0B1020) else Color(0xFFF2F2F8)
+    val background = if (darkTheme) Color(0xFF0B1020) else Color(0xFFF2F2F8)
+    val textColor = if (darkTheme) Color.White else Color.Black
+    val panelColor = if (darkTheme) Color(0xFF1D2333) else Color(0xFFE9ECF5)
+    val mutedText = if (darkTheme) Color(0xFFB8C1D9) else Color(0xFF44516A)
+    val trackColor = if (darkTheme) Color(0xFF4B5368) else Color(0xFFCFD6EA)
+    val activeTrackColor = if (darkTheme) Color(0xFFB6A4FF) else Color(0xFF7B63E6)
+    val thumbColor = Color.White
 
     LaunchedEffect(Unit) {
         while (true) {
@@ -76,57 +86,152 @@ public fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
         }
     }
 
-   Surface(color = background, modifier = Modifier.fillMaxSize()) {
-
-    Column(modifier = modifier.fillMaxSize().padding(25.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        // State selector
-        Text(
-                       "Selected state",
-                        fontWeight = FontWeight.Bold,
-                        color = if (darkTheme) Color.White else Color.Black
-                    )
-
-        Row(modifier = Modifier.fillMaxWidth()
-            .horizontalScroll(rememberScrollState()),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-
-            OrbState.values().forEach { st ->
-                Button(onClick = { selectedState = st }, modifier = Modifier) {
-                    Text(st.name, color = if (darkTheme) Color.White else Color.Black)
-                }
-            }
-        }
-
-        // Size
-        Text("Size: ${orbSize.toInt()}",color = if (darkTheme) Color.White else Color.Black)
-        Slider(value = orbSize, onValueChange = { orbSize = it }, valueRange = 64f..360f)
-
-        // Speed
-        Text("Speed: ${String.format("%.2f", speed)}x" , color = if (darkTheme) Color.White else Color.Black)
-        Slider(value = speed, onValueChange = { speed = it }, valueRange = 0.1f..4f)
-
-        // Color swatches
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            val colors = listOf(Color.White, Color.Cyan, Color.Magenta, Color.Yellow, Color.Green, Color.Red, Color.Blue)
-            colors.forEach { c ->
-                Box(
-                    modifier = Modifier
-                        .size(36.dp)
-                        .clip(MaterialTheme.shapes.small)
-                        .background(c)
-                        .clickable { orbColor = c }
-                        .then(if (orbColor == c) Modifier else Modifier)
+    Surface(color = background, modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(20.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Orb Playground",
+                    color = textColor,
+                    fontSize = 34.sp,
+                    fontWeight = FontWeight.Bold
                 )
             }
-        }
 
-        Divider()
+            Text(
+                text = "Select state",
+                color = textColor,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
 
-        // Preview area
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            Box(modifier = Modifier.height(280.dp), contentAlignment = Alignment.Center) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                OrbState.values().forEach { st ->
+                    val selected = st == selectedState
+                    StateChip(
+                        label = st.name,
+                        selected = selected,
+                        onClick = { selectedState = st }
+                    )
+                }
+            }
+
+            Surface(
+                color = panelColor,
+                shape = RoundedCornerShape(18.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text("Size", color = textColor, fontSize = 20.sp)
+                        Text("${orbSize.toInt()}", color = textColor, fontSize = 20.sp)
+                    }
+                    Slider(
+                        value = orbSize,
+                        onValueChange = { orbSize = it },
+                        valueRange = 64f..360f,
+                        colors = SliderDefaults.colors(
+                            thumbColor = thumbColor,
+                            activeTrackColor = activeTrackColor,
+                            inactiveTrackColor = trackColor,
+                        )
+                    )
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text("Speed", color = textColor, fontSize = 20.sp)
+                        Text("${String.format("%.2f", speed)}x", color = textColor, fontSize = 20.sp)
+                    }
+                    Slider(
+                        value = speed,
+                        onValueChange = { speed = it },
+                        valueRange = 0.1f..4f,
+                        colors = SliderDefaults.colors(
+                            thumbColor = thumbColor,
+                            activeTrackColor = activeTrackColor,
+                            inactiveTrackColor = trackColor,
+                        )
+                    )
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text("Color Palette", color = textColor, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                Text(
+                    text = "#${orbColor.toArgb().toUInt().toString(16).uppercase().padStart(6, '0')}",
+                    color = textColor,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                val colors = listOf(
+                    Color.White,
+                    Color(0xFF3DB7F4),
+                    Color(0xFFFF4C9A),
+                    Color(0xFFFFD93D),
+                    Color(0xFF2AE39F),
+                    Color(0xFFFF4D4D)
+                )
+
+                colors.forEach { c ->
+                    val selected = orbColor == c
+                    Box(
+                        modifier = Modifier
+                            .size(if (selected) 42.dp else 38.dp)
+                            .clip(CircleShape)
+                            .background(c)
+                            .clickable { orbColor = c }
+                            .then(if (selected) Modifier.border(2.dp, Color.White, CircleShape) else Modifier)
+                    )
+                }
+            }
+                }
+            }
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(260.dp)
+                    .background(Color(0xFF111C2D), CircleShape)
+                    .padding(16.dp),
+                contentAlignment = Alignment.Center
+            ) {
                 ThinkingOrb(
-                    modifier = Modifier.size(orbSize.dp),
+                    modifier = Modifier.size((orbSize.coerceAtMost(220f)).dp),
                     state = selectedState,
                     size = orbSize,
                     speed = speed,
@@ -134,51 +239,71 @@ public fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
                     color = orbColor,
                 )
             }
-            Spacer(modifier = Modifier.width(12.dp))
-        }
 
-        Surface(
-            color = Color(0xFF1E1E1E),
-            shape = MaterialTheme.shapes.medium,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Column(modifier = Modifier.fillMaxWidth()) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color(0xFF262626))
-                        .padding(horizontal = 12.dp, vertical = 10.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        text = "Kotlin",
-                        color = Color(0xFFB0B0B0),
-                        style = MaterialTheme.typography.labelLarge
-                    )
-
-                    TextButton(onClick = { clipboard.setText(AnnotatedString(snippet)) }) {
+            Surface(
+                color = Color(0xFF1E1E1E),
+                shape = RoundedCornerShape(14.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(Color(0xFF262626))
+                            .padding(horizontal = 12.dp, vertical = 10.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Text(
-                            text = "Copy",
-                            color = Color(0xFF7CC3FF)
+                            text = "Kotlin",
+                            color = Color(0xFFB0B0B0),
+                            style = MaterialTheme.typography.labelLarge
+                        )
+                        TextButton(onClick = { clipboard.setText(AnnotatedString(snippet)) }) {
+                            Text(
+                                text = "Copy",
+                                color = Color(0xFF7CC3FF)
+                            )
+                        }
+                    }
+
+                    SelectionContainer {
+                        Text(
+                            text = snippet,
+                            color = Color(0xFFEAEAEA),
+                            fontFamily = FontFamily.Monospace,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(12.dp)
                         )
                     }
                 }
-
-                SelectionContainer {
-                    Text(
-                        text = snippet,
-                        color = Color(0xFFEAEAEA),
-                        fontFamily = FontFamily.Monospace,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(12.dp)
-                    )
-                }
             }
+
         }
     }
 }
+
+@Composable
+private fun StateChip(label: String, selected: Boolean, onClick: () -> Unit) {
+    val container = if (selected) Color(0xFFB7A4FF) else Color(0xFF2A3347)
+    val content = if (selected) Color(0xFF101A2E) else Color.White
+
+    Button(
+        onClick = onClick,
+        shape = RoundedCornerShape(24.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = container,
+            contentColor = content
+        ),
+        modifier = Modifier.height(42.dp)
+    ) {
+        Text(
+            text = label,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.SemiBold
+        )
+    }
 }
 
 private fun buildOrbCodeSnippet(
@@ -201,5 +326,6 @@ private fun buildOrbCodeSnippet(
         append(")")
     }
 }
+
 
 private fun formatFloat(value: Float): String = String.format("%.2f", value) + "f"
