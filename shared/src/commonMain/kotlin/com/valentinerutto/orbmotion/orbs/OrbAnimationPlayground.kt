@@ -243,7 +243,9 @@ public fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
             Surface(
                 color = Color(0xFF1E1E1E),
                 shape = RoundedCornerShape(14.dp),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp)
             ) {
                 Column(modifier = Modifier.fillMaxWidth()) {
                     Row(
@@ -280,7 +282,56 @@ public fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
                 }
             }
 
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                NavItem(label = "Control", active = true)
+                NavItem(label = "Library", active = false)
+                NavItem(label = "History", active = false)
+                NavItem(label = "Account", active = false)
+            }
+
         }
+    }
+}
+
+@Composable
+private fun NavItem(label: String, active: Boolean) {
+    val bg = if (active) Color(0xFFB9A6FF) else Color.Transparent
+    val fg = if (active) Color(0xFF121A2D) else Color.White
+
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(6.dp),
+        modifier = Modifier.width(72.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .size(38.dp)
+                .background(bg, RoundedCornerShape(16.dp)),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = when (label) {
+                    "Control" -> "◉"
+                    "Library" -> "▣"
+                    "History" -> "◔"
+                    else -> "◌"
+                },
+                color = fg,
+                fontSize = 18.sp
+            )
+        }
+        Text(
+            text = label,
+            color = fg,
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Medium
+        )
     }
 }
 
