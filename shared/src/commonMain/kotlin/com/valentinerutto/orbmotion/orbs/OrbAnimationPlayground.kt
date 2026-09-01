@@ -22,6 +22,7 @@ import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Surface
@@ -52,7 +53,7 @@ import kotlinx.coroutines.delay
  * Keeps the implementation small and Material3-based so it can be dropped into `App.kt`.
  */
 @Composable
-public fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
+ fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
     var elapsed by remember { mutableFloatStateOf(0f) }
     var selectedState by remember { mutableStateOf(OrbState.SEARCHING) }
     var orbSize by remember { mutableFloatStateOf(360f) }
@@ -192,7 +193,6 @@ public fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
                 )
             }
 
-
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
@@ -224,12 +224,11 @@ public fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
 
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(260.dp)
-                    .background(Color(0xFF111C2D), CircleShape)
-                    .padding(16.dp),
+                    .size(260.dp)
+                    .background(Color(0xFF111C2D), CircleShape),
                 contentAlignment = Alignment.Center
             ) {
+
                 ThinkingOrb(
                     modifier = Modifier.size((orbSize.coerceAtMost(220f)).dp),
                     state = selectedState,
@@ -238,6 +237,7 @@ public fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
                     elapsedSeconds = elapsed,
                     color = orbColor,
                 )
+
             }
 
             Surface(
