@@ -8,10 +8,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -21,6 +21,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Slider
@@ -28,6 +29,8 @@ import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -40,6 +43,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
@@ -48,20 +52,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 
-/**
- * Simplified playground that targets the local `ThinkingOrb` API used in `App.kt`.
- * Keeps the implementation small and Material3-based so it can be dropped into `App.kt`.
- */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
- fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
+fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
     var elapsed by remember { mutableFloatStateOf(0f) }
     var selectedState by remember { mutableStateOf(OrbState.SEARCHING) }
     var orbSize by remember { mutableFloatStateOf(360f) }
     var speed by remember { mutableFloatStateOf(1f) }
     var orbColor by remember { mutableStateOf(Color.White) }
     var darkTheme by remember { mutableStateOf(true) }
+    var showSnippetSheet by remember { mutableStateOf(false) }
 
-    val snippet = remember(selectedState, orbSize, speed, orbColor, elapsed) {
+    val generatedSnippet = remember(selectedState, orbSize, speed, orbColor, elapsed) {
         buildOrbCodeSnippet(
             state = selectedState,
             size = orbSize,
@@ -75,7 +77,6 @@ import kotlinx.coroutines.delay
     val background = if (darkTheme) Color(0xFF0B1020) else Color(0xFFF2F2F8)
     val textColor = if (darkTheme) Color.White else Color.Black
     val panelColor = if (darkTheme) Color(0xFF1D2333) else Color(0xFFE9ECF5)
-    val mutedText = if (darkTheme) Color(0xFFB8C1D9) else Color(0xFF44516A)
     val trackColor = if (darkTheme) Color(0xFF4B5368) else Color(0xFFCFD6EA)
     val activeTrackColor = if (darkTheme) Color(0xFFB6A4FF) else Color(0xFF7B63E6)
     val thumbColor = Color.White
@@ -89,23 +90,15 @@ import kotlinx.coroutines.delay
 
     Surface(color = background, modifier = Modifier.fillMaxSize()) {
         Column(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(20.dp),
+            modifier = modifier.fillMaxSize().padding(20.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "Orb Playground",
-                    color = textColor,
-                    fontSize = 34.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
+            Text(
+                text = "Orb Playground",
+                color = textColor,
+                fontSize = 34.sp,
+                fontWeight = FontWeight.Bold
+            )
 
             Text(
                 text = "Select state",
@@ -115,16 +108,13 @@ import kotlinx.coroutines.delay
             )
 
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .horizontalScroll(rememberScrollState()),
+                modifier = Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 OrbState.values().forEach { st ->
-                    val selected = st == selectedState
                     StateChip(
                         label = st.name,
-                        selected = selected,
+                        selected = st == selectedState,
                         onClick = { selectedState = st }
                     )
                 }
@@ -136,9 +126,7 @@ import kotlinx.coroutines.delay
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
+                    modifier = Modifier.fillMaxWidth().padding(16.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     Row(
@@ -149,6 +137,7 @@ import kotlinx.coroutines.delay
                         Text("Size", color = textColor, fontSize = 20.sp)
                         Text("${orbSize.toInt()}", color = textColor, fontSize = 20.sp)
                     }
+
                     Slider(
                         value = orbSize,
                         onValueChange = { orbSize = it },
@@ -166,12 +155,9 @@ import kotlinx.coroutines.delay
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text("Speed", color = textColor, fontSize = 20.sp)
-                        Text(
-                            "${String.format("%.2f", speed)}x",
-                            color = textColor,
-                            fontSize = 20.sp
-                        )
+                        Text("${String.format("%.2f", speed)}x", color = textColor, fontSize = 20.sp)
                     }
+
                     Slider(
                         value = speed,
                         onValueChange = { speed = it },
@@ -195,9 +181,7 @@ import kotlinx.coroutines.delay
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "#${
-                                orbColor.toArgb().toUInt().toString(16).uppercase().padStart(6, '0')
-                            }",
+                            text = "#${orbColor.toArgb().toUInt().toString(16).uppercase().padStart(6, '0')}",
                             color = textColor,
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Bold
@@ -237,12 +221,10 @@ import kotlinx.coroutines.delay
                         }
                     }
                 }
-
             }
+
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(260.dp),
+                modifier = Modifier.fillMaxWidth().height(260.dp),
                 contentAlignment = Alignment.Center
             ) {
                 ThinkingOrb(
@@ -258,9 +240,8 @@ import kotlinx.coroutines.delay
             Surface(
                 color = Color(0xFF1E1E1E),
                 shape = RoundedCornerShape(14.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp)
+                modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
+                    .clickable { showSnippetSheet = true }
             ) {
                 Column(modifier = Modifier.fillMaxWidth()) {
                     Row(
@@ -276,28 +257,75 @@ import kotlinx.coroutines.delay
                             color = Color(0xFFB0B0B0),
                             style = MaterialTheme.typography.labelLarge
                         )
-                        TextButton(onClick = { clipboard.setText(AnnotatedString(snippet)) }) {
-                            Text(
-                                text = "Copy",
-                                color = Color(0xFF7CC3FF)
-                            )
+
+                        TextButton(
+                            onClick = {
+                                clipboard.setText(AnnotatedString(generatedSnippet))
+                            }
+                        ) {
+                            Text(text = "Copy", color = Color(0xFF7CC3FF))
                         }
                     }
 
                     SelectionContainer {
                         Text(
-                            text = snippet,
+                            text = generatedSnippet,
                             color = Color(0xFFEAEAEA),
                             fontFamily = FontFamily.Monospace,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(12.dp)
+                            modifier = Modifier.fillMaxWidth().padding(12.dp)
                         )
                     }
                 }
             }
+        }
+    }
 
+    if (showSnippetSheet) {
+        ModalBottomSheet(
+            onDismissRequest = { showSnippetSheet = false }
+        ) {
+            Column(
+                modifier = Modifier.fillMaxWidth().padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Code snippet",
+                        color = textColor,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold
+                    )
 
+                    TextButton(
+                        onClick = {
+                            clipboard.setText(AnnotatedString(generatedSnippet))
+                        }
+                    ) {
+                        Text("Copy", color = Color(0xFF7CC3FF))
+                    }
+                }
+
+                TextField(
+                    value = generatedSnippet,
+                    onValueChange = {},
+                    readOnly = true,
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 220.dp),
+                    textStyle = MaterialTheme.typography.bodyMedium.copy(fontFamily = FontFamily.Monospace),
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = Color(0xFF111827),
+                        unfocusedContainerColor = Color(0xFF111827),
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
+                        cursorColor = Color(0xFF7CC3FF),
+                        focusedTextColor = Color(0xFFEAEAEA),
+                        unfocusedTextColor = Color(0xFFEAEAEA)
+                    )
+                )
+            }
         }
     }
 }
@@ -344,6 +372,5 @@ private fun buildOrbCodeSnippet(
         append(")")
     }
 }
-
 
 private fun formatFloat(value: Float): String = String.format("%.2f", value) + "f"
