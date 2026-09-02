@@ -208,13 +208,15 @@ fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold
                             )
+                            SelectionContainer {
+
                             Text(
                                 text = "#${orbColor.toArgb().toUInt().toString(16).uppercase().padStart(6, '0')}",
                                 color = textColor,
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.Bold
                             )
-                        }
+                        }}
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -224,10 +226,16 @@ fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
                             val colors = listOf(
                                 Color.White,
                                 Color(0xFF3DB7F4),
+                                Color(0xFFB388FF),
                                 Color(0xFFFF4C9A),
+                                Color(0xFFFF7AB6),
                                 Color(0xFFFFD93D),
-                                Color(0xFF2AE39F),
-                                Color(0xFFFF4D4D)
+                                Color(0xFFFFB14A),
+                                Color(0xFF39D98A),
+                                Color(0xFFFF4D4D),
+                                Color(0xFFFF6F61),
+                                Color(0xFF8B5CF6),
+                                Color(0xFF9EE7FF)
                             )
 
                             colors.forEach { c ->
