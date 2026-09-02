@@ -166,7 +166,11 @@ import kotlinx.coroutines.delay
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text("Speed", color = textColor, fontSize = 20.sp)
-                        Text("${String.format("%.2f", speed)}x", color = textColor, fontSize = 20.sp)
+                        Text(
+                            "${String.format("%.2f", speed)}x",
+                            color = textColor,
+                            fontSize = 20.sp
+                        )
                     }
                     Slider(
                         value = speed,
@@ -179,56 +183,68 @@ import kotlinx.coroutines.delay
                         )
                     )
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text("Color Palette", color = textColor, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-                Text(
-                    text = "#${orbColor.toArgb().toUInt().toString(16).uppercase().padStart(6, '0')}",
-                    color = textColor,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            "Color Palette",
+                            color = textColor,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = "#${
+                                orbColor.toArgb().toUInt().toString(16).uppercase().padStart(6, '0')
+                            }",
+                            color = textColor,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                val colors = listOf(
-                    Color.White,
-                    Color(0xFF3DB7F4),
-                    Color(0xFFFF4C9A),
-                    Color(0xFFFFD93D),
-                    Color(0xFF2AE39F),
-                    Color(0xFFFF4D4D)
-                )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        val colors = listOf(
+                            Color.White,
+                            Color(0xFF3DB7F4),
+                            Color(0xFFFF4C9A),
+                            Color(0xFFFFD93D),
+                            Color(0xFF2AE39F),
+                            Color(0xFFFF4D4D)
+                        )
 
-                colors.forEach { c ->
-                    val selected = orbColor == c
-                    Box(
-                        modifier = Modifier
-                            .size(if (selected) 42.dp else 38.dp)
-                            .clip(CircleShape)
-                            .background(c)
-                            .clickable { orbColor = c }
-                            .then(if (selected) Modifier.border(2.dp, Color.White, CircleShape) else Modifier)
-                    )
+                        colors.forEach { c ->
+                            val selected = orbColor == c
+                            Box(
+                                modifier = Modifier
+                                    .size(if (selected) 42.dp else 38.dp)
+                                    .clip(CircleShape)
+                                    .background(c)
+                                    .clickable { orbColor = c }
+                                    .then(
+                                        if (selected) Modifier.border(
+                                            2.dp,
+                                            Color.White,
+                                            CircleShape
+                                        ) else Modifier
+                                    )
+                            )
+                        }
+                    }
                 }
-            }
-                }
-            }
 
+            }
             Box(
                 modifier = Modifier
-                    .size(260.dp)
-                    .background(Color(0xFF111C2D), CircleShape),
+                    .fillMaxWidth()
+                    .height(260.dp),
                 contentAlignment = Alignment.Center
             ) {
-
                 ThinkingOrb(
                     modifier = Modifier.size((orbSize.coerceAtMost(220f)).dp),
                     state = selectedState,
@@ -237,7 +253,6 @@ import kotlinx.coroutines.delay
                     elapsedSeconds = elapsed,
                     color = orbColor,
                 )
-
             }
 
             Surface(
