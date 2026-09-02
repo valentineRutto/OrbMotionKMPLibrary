@@ -98,7 +98,19 @@ fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
                 fontSize = 34.sp,
                 fontWeight = FontWeight.Bold
             )
-
+            Box(
+                modifier = Modifier.fillMaxWidth().height(260.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                ThinkingOrb(
+                    modifier = Modifier.size((orbSize.coerceAtMost(220f)).dp),
+                    state = selectedState,
+                    size = orbSize,
+                    speed = speed,
+                    elapsedSeconds = elapsed,
+                    color = orbColor,
+                )
+            }
             Text(
                 text = "Select state",
                 color = textColor,
@@ -222,19 +234,7 @@ fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
                 }
             }
 
-            Box(
-                modifier = Modifier.fillMaxWidth().height(260.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                ThinkingOrb(
-                    modifier = Modifier.size((orbSize.coerceAtMost(220f)).dp),
-                    state = selectedState,
-                    size = orbSize,
-                    speed = speed,
-                    elapsedSeconds = elapsed,
-                    color = orbColor,
-                )
-            }
+
 
             Surface(
                 color = Color(0xFF1E1E1E),
@@ -252,28 +252,13 @@ fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Code Snippet",
+                            text = "Show Code Snippet",
                             color = Color(0xFFB0B0B0),
                             style = MaterialTheme.typography.labelLarge
                         )
 
-                        TextButton(
-                            onClick = {
-                                clipboard.setText(AnnotatedString(generatedSnippet))
-                            }
-                        ) {
-                            Text(text = "Copy", color = Color(0xFF7CC3FF))
-                        }
                     }
 
-                    SelectionContainer {
-                        Text(
-                            text = generatedSnippet,
-                            color = Color(0xFFEAEAEA),
-                            fontFamily = FontFamily.Monospace,
-                            modifier = Modifier.fillMaxWidth().padding(12.dp)
-                        )
-                    }
                 }
             }
         }
