@@ -152,22 +152,23 @@ fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Column(
-                        modifier = Modifier.fillMaxWidth().padding(16.dp),
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                        modifier = Modifier.fillMaxWidth().padding(12.dp),
+                        verticalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text("Size", color = textColor, fontSize = 20.sp)
-                            Text("${orbSize.toInt()}", color = textColor, fontSize = 20.sp)
+                            Text("Size", color = textColor, fontSize = 16.sp)
+                            Text("${orbSize.toInt()}", color = textColor, fontSize = 16.sp)
                         }
 
                         Slider(
                             value = orbSize,
                             onValueChange = { orbSize = it },
                             valueRange = 64f..360f,
+                            modifier = Modifier.height(18.dp),
                             colors = SliderDefaults.colors(
                                 thumbColor = thumbColor,
                                 activeTrackColor = activeTrackColor,
@@ -180,14 +181,15 @@ fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text("Speed", color = textColor, fontSize = 20.sp)
-                            Text("${String.format("%.2f", speed)}x", color = textColor, fontSize = 20.sp)
+                            Text("Speed", color = textColor, fontSize = 16.sp)
+                            Text("${String.format("%.2f", speed)}x", color = textColor, fontSize = 16.sp)
                         }
 
                         Slider(
                             value = speed,
                             onValueChange = { speed = it },
                             valueRange = 0.1f..4f,
+                            modifier = Modifier.height(18.dp),
                             colors = SliderDefaults.colors(
                                 thumbColor = thumbColor,
                                 activeTrackColor = activeTrackColor,
@@ -203,20 +205,20 @@ fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
                             Text(
                                 "Color Palette",
                                 color = textColor,
-                                fontSize = 20.sp,
+                                fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold
                             )
                             Text(
                                 text = "#${orbColor.toArgb().toUInt().toString(16).uppercase().padStart(6, '0')}",
                                 color = textColor,
-                                fontSize = 14.sp,
+                                fontSize = 12.sp,
                                 fontWeight = FontWeight.Bold
                             )
                         }
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             val colors = listOf(
@@ -232,7 +234,7 @@ fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
                                 val selected = orbColor == c
                                 Box(
                                     modifier = Modifier
-                                        .size(if (selected) 42.dp else 38.dp)
+                                        .size(if (selected) 34.dp else 30.dp)
                                         .clip(CircleShape)
                                         .background(c)
                                         .clickable { orbColor = c }
@@ -252,7 +254,7 @@ fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
                 Surface(
                     color = Color(0xFF1E1E1E),
                     shape = RoundedCornerShape(14.dp),
-                    modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
+                    modifier = Modifier.fillMaxWidth().padding(top = 4.dp)
                         .clickable { showSnippetSheet = true }
                 ) {
                     Column(modifier = Modifier.fillMaxWidth()) {
