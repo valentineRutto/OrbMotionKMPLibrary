@@ -43,7 +43,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
@@ -98,6 +97,7 @@ fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
                 fontSize = 34.sp,
                 fontWeight = FontWeight.Bold
             )
+
             Box(
                 modifier = Modifier.fillMaxWidth().height(260.dp),
                 contentAlignment = Alignment.Center
@@ -111,6 +111,7 @@ fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
                     color = orbColor,
                 )
             }
+
             Text(
                 text = "Select state",
                 color = textColor,
