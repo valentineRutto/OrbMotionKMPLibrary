@@ -68,7 +68,6 @@ fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
             state = selectedState,
             size = orbSize,
             speed = speed,
-            elapsedSeconds = elapsed,
             color = orbColor,
         )
     }
@@ -253,7 +252,7 @@ fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Kotlin",
+                            text = "Code Snippet",
                             color = Color(0xFFB0B0B0),
                             style = MaterialTheme.typography.labelLarge
                         )
@@ -282,7 +281,8 @@ fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
 
     if (showSnippetSheet) {
         ModalBottomSheet(
-            onDismissRequest = { showSnippetSheet = false }
+            onDismissRequest = { showSnippetSheet = false },
+            containerColor = Color(0xFF1E1E1E),
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth().padding(16.dp),
@@ -356,7 +356,6 @@ private fun buildOrbCodeSnippet(
     state: OrbState,
     size: Float,
     speed: Float,
-    elapsedSeconds: Float,
     color: Color,
 ): String {
     val hex = color.toArgb().toUInt().toString(16).uppercase().padStart(8, '0')
@@ -366,7 +365,6 @@ private fun buildOrbCodeSnippet(
         appendLine("    state = OrbState.${state.name},")
         appendLine("    size = ${formatFloat(size)},")
         appendLine("    speed = ${formatFloat(speed)},")
-        appendLine("    elapsedSeconds = ${formatFloat(elapsedSeconds)},")
         append("    color = Color(0x${hex}),")
         appendLine()
         append(")")
