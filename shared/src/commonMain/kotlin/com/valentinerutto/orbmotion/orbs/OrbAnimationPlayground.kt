@@ -73,11 +73,11 @@ fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
     }
 
     val clipboard = LocalClipboardManager.current
-    val background = if (darkTheme) Color(0xFF0B1020) else Color(0xFFF2F2F8)
-    val textColor = if (darkTheme) Color.White else Color.Black
-    val panelColor = if (darkTheme) Color(0xFF1D2333) else Color(0xFFE9ECF5)
-    val trackColor = if (darkTheme) Color(0xFF4B5368) else Color(0xFFCFD6EA)
-    val activeTrackColor = if (darkTheme) Color(0xFFB6A4FF) else Color(0xFF7B63E6)
+    val background = Color.Black
+    val textColor = Color.White
+    val panelColor = Color(0xFF1A1A1A)
+    val trackColor = Color(0xFF5A5A5A)
+    val activeTrackColor = Color.White
     val thumbColor = Color.White
 
     LaunchedEffect(Unit) {
@@ -209,14 +209,14 @@ fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
                                 fontWeight = FontWeight.Bold
                             )
                             SelectionContainer {
-
-                            Text(
-                                text = "#${orbColor.toArgb().toUInt().toString(16).uppercase().padStart(6, '0')}",
-                                color = textColor,
-                                fontSize = 12.sp,
-                                fontWeight = FontWeight.Bold
-                            )
-                        }}
+                                Text(
+                                    text = "#${orbColor.toArgb().toUInt().toString(16).uppercase().padStart(6, '0')}",
+                                    color = textColor,
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -340,8 +340,8 @@ fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
 
 @Composable
 private fun StateChip(label: String, selected: Boolean, onClick: () -> Unit) {
-    val container = if (selected) Color(0xFFB7A4FF) else Color(0xFF2A3347)
-    val content = if (selected) Color(0xFF101A2E) else Color.White
+    val container = if (selected) Color.White else Color(0xFF2A3347)
+    val content = if (selected) Color.Black else Color.White
 
     Button(
         onClick = onClick,
