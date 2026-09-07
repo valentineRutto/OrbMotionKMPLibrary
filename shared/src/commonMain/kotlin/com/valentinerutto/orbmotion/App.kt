@@ -1,5 +1,8 @@
 package com.valentinerutto.orbmotion
 
+// Demo-only screen for local previews. Library consumers should use the reusable orb APIs
+// directly from the shared module instead of depending on this app-like entry point.
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -40,8 +43,7 @@ import com.valentinerutto.orbmotion.orbs.ThinkingOrb
 import kotlinx.coroutines.delay
 
 @Composable
-@Preview
-fun App() {
+fun OrbDemoScreen() {
     MaterialTheme {
 
         var elapsed by remember { mutableFloatStateOf(0f) }

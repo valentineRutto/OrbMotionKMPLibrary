@@ -10,6 +10,25 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import com.example.orbs.engine.FrameDispatcher
 
 @Composable
+public fun OrbLoadingIndicator(
+    modifier: Modifier = Modifier,
+    state: OrbState = OrbState.CONNECTING,
+    size: Float = 64f,
+    speed: Float = 1f,
+    elapsedSeconds: Float,
+    color: Color = Color.White
+) {
+    ThinkingOrb(
+        modifier = modifier,
+        state = state,
+        size = size,
+        speed = speed,
+        elapsedSeconds = elapsedSeconds,
+        color = color
+    )
+}
+
+@Composable
 fun ThinkingOrb(
     modifier: Modifier = Modifier,
     state: OrbState = OrbState.CONNECTING,
