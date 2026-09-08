@@ -54,7 +54,7 @@ import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
+internal fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
     var elapsed by remember { mutableFloatStateOf(0f) }
     var selectedState by remember { mutableStateOf(OrbState.SEARCHING) }
     var orbSize by remember { mutableFloatStateOf(360f) }
@@ -379,4 +379,4 @@ private fun buildOrbCodeSnippet(
     }
 }
 
-private fun formatFloat(value: Float): String = String.format("%.2f", value) + "f"
+fun formatFloat(value: Float): String = String.format("%.2f", value) + "f"
