@@ -4,13 +4,16 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 enum class OrbState {
-    WORKING,
     SEARCHING,
+
+    COMPOSING,
+
     SOLVING,
     LISTENING,
+    WORKING,
+
     CONNECTING,
     WEAVING,
-    COMPOSING,
     BREATHING,
     SHAPING
 }

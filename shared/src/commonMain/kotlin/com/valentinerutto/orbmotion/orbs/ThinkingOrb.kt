@@ -15,8 +15,8 @@ public fun OrbLoadingIndicator(
     state: OrbState = OrbState.CONNECTING,
     size: Float = 64f,
     speed: Float = 1f,
-    elapsedSeconds: Float,
-    color: Color = Color.White
+    elapsedSeconds: Float = 0f,
+    color: Color = Color.White,
 ) {
     ThinkingOrb(
         modifier = modifier,
@@ -24,7 +24,7 @@ public fun OrbLoadingIndicator(
         size = size,
         speed = speed,
         elapsedSeconds = elapsedSeconds,
-        color = color
+        color = color,
     )
 }
 

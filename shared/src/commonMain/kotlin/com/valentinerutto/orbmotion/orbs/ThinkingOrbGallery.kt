@@ -49,7 +49,7 @@ public fun ThinkingOrbGallery(
                 contentAlignment = Alignment.Center,
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    OrbLoadingIndicator(
+                    ThinkingOrb(
                         modifier = Modifier.size(size.dpValue),
                         state = state,
                         size = size.floatValue,

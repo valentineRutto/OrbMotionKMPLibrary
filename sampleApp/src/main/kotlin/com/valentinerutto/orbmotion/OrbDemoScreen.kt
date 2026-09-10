@@ -49,9 +49,10 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.valentinerutto.orbmotion.orbs.OrbLoadingIndicator
+import com.valentinerutto.orbmotion.orbs.OrbGallery
 import com.valentinerutto.orbmotion.orbs.OrbState
 import com.valentinerutto.orbmotion.orbs.ThinkingOrb
+import com.valentinerutto.orbmotion.orbs.ThinkingOrbGallery
 import com.valentinerutto.orbmotion.orbs.formatFloat
 import kotlinx.coroutines.delay
 
@@ -185,16 +186,9 @@ import kotlinx.coroutines.delay
                         val displayOrbSize =
                             (orbSize.coerceAtMost(availableSize * 0.5f)).coerceAtLeast(120f)
 
-//                        ThinkingOrb(
-//                            modifier = Modifier.size(displayOrbSize.dp),
-//                            state = selectedState,
-//                            size = orbSize,
-//                            speed = speed,
-//                            elapsedSeconds = elapsed,
-//                            color = orbColor,
-//                        )
 
-                        OrbLoadingIndicator(
+
+                        ThinkingOrb(
                     modifier = Modifier.size(displayOrbSize.dp),
                     state = selectedState,
                     size = orbSize,

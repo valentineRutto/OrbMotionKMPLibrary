@@ -182,7 +182,7 @@ internal fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text("Speed", color = textColor, fontSize = 16.sp)
-                            Text("${String.format("%.2f", speed)}x", color = textColor, fontSize = 16.sp)
+                            Text("${formatFloat(speed)}x", color = textColor, fontSize = 16.sp)
                         }
 
                         Slider(
@@ -379,4 +379,9 @@ private fun buildOrbCodeSnippet(
     }
 }
 
-fun formatFloat(value: Float): String = String.format("%.2f", value) + "f"
+fun formatFloat(value: Float): String {
+    val scaled = (value * 100f).toInt()
+    val whole = scaled / 100
+    val fraction = kotlin.math.abs(scaled % 100)
+    return "${whole}.${fraction.toString().padStart(2, '0')}f"
+}
