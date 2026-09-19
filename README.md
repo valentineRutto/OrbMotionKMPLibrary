@@ -17,7 +17,9 @@ Original project:
 * **Author:** Jakub Antalik
 * **License:** MIT
 
-Additional states in this port include `breathing`, `connecting`, and `weaving`.
+The original library features expressive states such as `SEARCHING`, `COMPOSING`, `SOLVING`, `LISTENING`, `WORKING`, and `SHAPING`.
+
+This Kotlin/Compose Multiplatform port additionally includes `BREATHING`, `CONNECTING`, and `WEAVING`.
 
 **Original animation design and implementation:** © Jakub Antalik
 **Kotlin/Compose Multiplatform port:** © Valentine Rutto
