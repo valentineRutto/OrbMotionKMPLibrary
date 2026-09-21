@@ -6,9 +6,10 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     `maven-publish`
+    signing
 }
 
-group = "com.valentinerutto"
+group = "io.github.valentinerutto"
 version = "0.1.0"
 
 kotlin {
@@ -18,8 +19,24 @@ kotlin {
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "Shared"
-            isStatic = true
+            // Use a dynamic framework for CocoaPods compatibility
+            isStatic = false
         }
+    }
+
+    // CocoaPods integration for iOS consumers
+    cocoapods {
+        summary = "OrbMotion - thinking orbs animation library"
+        homepage = "https://github.com/valentineRutto/OrbMotionKMPLibrary"
+        ios.deploymentTarget = "14.0"
+        framework {
+            baseName = "Shared"
+            // export swift interop if needed
+            isStatic = false
+        }
+        podfile = project.file("../iosApp/Podfile")
+        authors = "Valentine Rutto"
+        license = "MIT"
     }
     
     android {
@@ -71,17 +88,66 @@ dependencies {
 }
 
 publishing {
+    publications {
+        withType<MavenPublication>().configureEach {
+            groupId = "io.github.valentinerutto"
+            artifactId = "orbmotion"
+            version = "0.1.0"
+
+            pom {
+                name.set("OrbMotion")
+                description.set("Kotlin Multiplatform orb animation library")
+                url.set("https://github.com/valentineRutto/OrbMotionKMPLibrary")
+
+                licenses {
+                    license {
+                        name.set("MIT License")
+                        url.set("https://opensource.org/licenses/MIT")
+                    }
+                }
+
+                developers {
+                    developer {
+                        id.set("valentinerutto")
+                        name.set("Valentine Rutto")
+                        email.set("vruttoapps@gmail.com")
+                    }
+                }
+
+                scm {
+                    connection.set("scm:git:github.com/valentineRutto/OrbMotionKMPLibrary.git")
+                    developerConnection.set("scm:git:ssh://git@github.com/valentineRutto/OrbMotionKMPLibrary.git")
+                    url.set("https://github.com/valentineRutto/OrbMotionKMPLibrary")
+                }
+            }
+        }
+    }
+
     repositories {
         mavenLocal()
         maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/valentineRutto/OrbMotionKMPLibrary")
+            name = "MavenCentral"
+            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
             credentials {
-                username = project.findProperty("gpr.user") as String?
-                    ?: System.getenv("GITHUB_ACTOR")
-                password = project.findProperty("gpr.key") as String?
-                    ?: System.getenv("GITHUB_TOKEN")
+                // Use Gradle properties or environment variables for credentials
+                username = project.findProperty("ossrhUsername") as String? ?: System.getenv("OSSRH_USERNAME")
+                password = project.findProperty("ossrhPassword") as String? ?: System.getenv("OSSRH_PASSWORD")
             }
         }
     }
 }
+
+val hasSigningCredentials = project.findProperty("signingKey") != null || System.getenv("GPG_PRIVATE_KEY") != null
+
+if (hasSigningCredentials) {
+    signing {
+        val signingKey = project.findProperty("signingKey") as String?
+            ?: System.getenv("GPG_PRIVATE_KEY")
+        val signingPassword = project.findProperty("signingPassword") as String?
+            ?: System.getenv("GPG_PASSWORD")
+
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        sign(publishing.publications)
+    }
+}
+

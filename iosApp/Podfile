@@ -1,0 +1,9 @@
+platform :ios, '14.0'
+use_frameworks!
+
+target 'iosApp' do
+  project 'iosApp/iosApp.xcodeproj'
+
+  # Use the locally-built Kotlin/Native framework produced by the `shared` module
+  pod 'Shared', :path => '../shared'
+end
