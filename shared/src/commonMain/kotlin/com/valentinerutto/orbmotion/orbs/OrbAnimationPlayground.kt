@@ -46,6 +46,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -317,21 +324,64 @@ internal fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
                 }
 
                 TextField(
-                    value = generatedSnippet,
-                    onValueChange = {},
-                    readOnly = true,
-                    modifier = Modifier.fillMaxWidth().heightIn(min = 220.dp),
-                    textStyle = MaterialTheme.typography.bodyMedium.copy(fontFamily = FontFamily.Monospace),
-                    colors = TextFieldDefaults.colors(
-                        focusedContainerColor = Color(0xFF111827),
-                        unfocusedContainerColor = Color(0xFF111827),
-                        focusedIndicatorColor = Color.Transparent,
-                        unfocusedIndicatorColor = Color.Transparent,
-                        cursorColor = Color(0xFF7CC3FF),
-                        focusedTextColor = Color(0xFFEAEAEA),
-                        unfocusedTextColor = Color(0xFFEAEAEA)
-                    )
-                )
+                    val scrollState = rememberScrollState()
+                    val annotated = remember(generatedSnippet) { highlightKotlin(generatedSnippet) }
+
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 220.dp)
+                            .background(Color(0xFF1E1E1E))
+                            .padding(12.dp)
+                            .verticalScroll(scrollState)
+                    ) {
+                        androidx.compose.material3.Text(
+                            text = annotated,
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                fontFamily = FontFamily.Monospace,
+                                fontSize = 13.sp
+                            ),
+                            overflow = TextOverflow.Visible,
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+private fun highlightKotlin(code: String): AnnotatedString {
+    val keywords = setOf(
+        "fun", "val", "var", "return", "if", "else", "when", "for", "while",
+        "true", "false", "null", "import", "package", "class", "object", "interface"
+    )
+
+    val keywordStyle = SpanStyle(color = Color(0xFF569CD6))
+    val typeStyle = SpanStyle(color = Color(0xFFD7BA7D))
+    val functionStyle = SpanStyle(color = Color(0xFF9CDCFE))
+    val numberStyle = SpanStyle(color = Color(0xFFB5CEA8))
+    val stringStyle = SpanStyle(color = Color(0xFFCE9178), fontStyle = FontStyle.Normal)
+    val defaultStyle = SpanStyle(color = Color(0xFFEAEAEA))
+
+    return buildAnnotatedString {
+        var i = 0
+        val tokens = Regex("(\\".*?\\"|\\b\\d+[\\.]?\\d*\\b|\\w+|\\s+|[^\\w\\s]+)")
+        val matches = tokens.findAll(code)
+        for (m in matches) {
+            val token = m.value
+            when {
+                token.startsWith("\"") && token.endsWith("\"") -> pushStyle(stringStyle)
+                token.trim().matches(Regex("\\d+[\\.]?\\d*")) -> pushStyle(numberStyle)
+                keywords.contains(token.trim()) -> pushStyle(keywordStyle)
+                token.matches(Regex("[A-Z][A-Za-z0-9_]*")) -> pushStyle(typeStyle)
+                token.matches(Regex("[a-zA-Z_][A-Za-z0-9_]*\\(")) -> pushStyle(functionStyle)
+                else -> pushStyle(defaultStyle)
+            }
+            append(token)
+            pop()
+        }
+    }
+}
             }
         }
     }
