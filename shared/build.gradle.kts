@@ -24,20 +24,11 @@ kotlin {
         }
     }
 
-    // CocoaPods integration for iOS consumers
-    cocoapods {
-        summary = "OrbMotion - thinking orbs animation library"
-        homepage = "https://github.com/valentineRutto/OrbMotionKMPLibrary"
-        ios.deploymentTarget = "14.0"
-        framework {
-            baseName = "Shared"
-            // export swift interop if needed
-            isStatic = false
-        }
-        podfile = project.file("../iosApp/Podfile")
-        authors = "Valentine Rutto"
-        license = "MIT"
-    }
+    // Note: CocoaPods configuration was removed temporarily because
+    // the Kotlin Multiplatform Gradle configuration failed to locate
+    // the `cocoapods` DSL during Android builds. Re-add a guarded
+    // `cocoapods {}` block when using a Kotlin Gradle plugin that
+    // exposes the extension (or apply the appropriate plugin).
     
     android {
        namespace = "com.valentinerutto.orbmotion.shared"
