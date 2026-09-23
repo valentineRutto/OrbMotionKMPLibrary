@@ -22,4 +22,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppAndroidPreview() {
     //DemoOrbScreen()
+    OrbAnimationPlaygroundScreen()
+
 }

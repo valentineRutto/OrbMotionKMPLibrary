@@ -323,8 +323,9 @@ internal fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
                     }
                 }
 
-                TextField(
+
                     val scrollState = rememberScrollState()
+
                     val annotated = remember(generatedSnippet) { highlightKotlin(generatedSnippet) }
 
                     Box(
@@ -360,33 +361,52 @@ private fun highlightKotlin(code: String): AnnotatedString {
     val typeStyle = SpanStyle(color = Color(0xFFD7BA7D))
     val functionStyle = SpanStyle(color = Color(0xFF9CDCFE))
     val numberStyle = SpanStyle(color = Color(0xFFB5CEA8))
-    val stringStyle = SpanStyle(color = Color(0xFFCE9178), fontStyle = FontStyle.Normal)
+    val stringStyle = SpanStyle(color = Color(0xFFCE9178))
     val defaultStyle = SpanStyle(color = Color(0xFFEAEAEA))
 
+    // Tokenizer regex with capture groups:
+    // 1 -> string literal, 2 -> number, 3 -> identifier, 4 -> whitespace, 5 -> other (punctuation)
+    val tokenRegex = Regex("(\\\"(?:\\\\.|[^\\\\\"])*\\\")|(\\b\\d+\\.?\\d*\\b)|(\\b[A-Za-z_][A-Za-z0-9_]*\\b)|(\\s+)|([^\\sA-Za-z0-9_\\\"])")
+
     return buildAnnotatedString {
-        var i = 0
-        val tokens = Regex("(\\".*?\\"|\\b\\d+[\\.]?\\d*\\b|\\w+|\\s+|[^\\w\\s]+)")
-        val matches = tokens.findAll(code)
+        val matches = tokenRegex.findAll(code)
         for (m in matches) {
-            val token = m.value
+            val (strLit, number, ident, space, other) = m.destructured
+
             when {
-                token.startsWith("\"") && token.endsWith("\"") -> pushStyle(stringStyle)
-                token.trim().matches(Regex("\\d+[\\.]?\\d*")) -> pushStyle(numberStyle)
-                keywords.contains(token.trim()) -> pushStyle(keywordStyle)
-                token.matches(Regex("[A-Z][A-Za-z0-9_]*")) -> pushStyle(typeStyle)
-                token.matches(Regex("[a-zA-Z_][A-Za-z0-9_]*\\(")) -> pushStyle(functionStyle)
+                strLit.isNotEmpty() -> pushStyle(stringStyle)
+                number.isNotEmpty() -> pushStyle(numberStyle)
+                ident.isNotEmpty() -> {
+                    val token = ident
+                    if (keywords.contains(token)) pushStyle(keywordStyle)
+                    else if (token.firstOrNull()?.isUpperCase() == true) pushStyle(typeStyle)
+                    else {
+                        // Peek next non-whitespace character to detect function calls
+                        val nextIndex = m.range.last + 1
+                        var isFunction = false
+                        if (nextIndex < code.length) {
+                            var j = nextIndex
+                            while (j < code.length && code[j].isWhitespace()) j++
+                            if (j < code.length && code[j] == '(') isFunction = true
+                        }
+                        if (isFunction) pushStyle(functionStyle) else pushStyle(defaultStyle)
+                    }
+                }
+                space.isNotEmpty() -> pushStyle(defaultStyle)
+                other.isNotEmpty() -> pushStyle(defaultStyle)
                 else -> pushStyle(defaultStyle)
             }
-            append(token)
+
+            append(m.value)
             pop()
         }
     }
 }
-            }
-        }
-    }
-}
-}
+
+
+
+
+
 
 @Composable
 private fun StateChip(label: String, selected: Boolean, onClick: () -> Unit) {
