@@ -4,7 +4,7 @@ Animated, monochrome “thinking orb” indicators for AI and agent UIs — buil
 
 ## Credit & Attribution
 
-**OrbsMotion-kmp is an unofficial Kotlin/Compose Multiplatform port of [Thinking Orbs](https://orbs.jakubantalik.com) by [Jakub Antalik](https://github.com/Jakubantalik).**
+**OrbsMotion-kmp is an unofficial Kotlin/Compose Multiplatform port of [Thinking Orbs](https://libraries.dev/orbs) by [Jakub Antalik](https://github.com/Jakubantalik).**
 
 The original *Thinking Orbs* is a dotted, canvas-based web animation library featuring expressive states such as `working`, `searching`, `solving`, `listening`, `composing`, and `shaping`.
 
