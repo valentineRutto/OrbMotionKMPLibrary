@@ -1,10 +1,8 @@
 import SwiftUI
-import shared
+import Shared
 
 // SwiftUI wrapper that embeds the Kotlin/Compose UIViewController for the Orb gallery.
-// Note: The exact generated Kotlin/Native symbol name for the top-level factory may differ.
-// If the call below doesn't compile, open the generated header (shared.framework) to find the
-// correct function name — it will be something like `ComValentineruttoOrbmotionIosKt`.
+// Kotlin/Native exports the iOS bridge functions through this generated facade.
 
 struct ComposeOrbView: UIViewControllerRepresentable {
     var speed: Float = 1.0
@@ -14,8 +12,7 @@ struct ComposeOrbView: UIViewControllerRepresentable {
     var bgColorArgb: Int64 = 0x00000000
 
     func makeUIViewController(context: Context) -> UIViewController {
-        // Try calling the Kotlin factory. Adjust the symbol name if necessary.
-        return ComValentineruttoOrbmotionIosKt.makeThinkingOrbGalleryViewController(
+        return OrbIosInteropKt.makeThinkingOrbGalleryViewController(
             speed: speed,
             sizeDp: sizeDp,
             themeOrdinal: Int32(themeOrdinal),
