@@ -129,7 +129,7 @@ import kotlinx.coroutines.delay
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    internal fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
+     fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
         var elapsed by remember { mutableFloatStateOf(0f) }
         var selectedState by remember { mutableStateOf(OrbState.SEARCHING) }
         var orbSize by remember { mutableFloatStateOf(360f) }

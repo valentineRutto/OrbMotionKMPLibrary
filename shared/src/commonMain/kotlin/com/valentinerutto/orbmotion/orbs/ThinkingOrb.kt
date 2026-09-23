@@ -18,6 +18,7 @@ public fun OrbLoadingIndicator(
     elapsedSeconds: Float = 0f,
     color: Color = Color.White,
 ) {
+
     ThinkingOrb(
         modifier = modifier,
         state = state,
@@ -26,6 +27,7 @@ public fun OrbLoadingIndicator(
         elapsedSeconds = elapsedSeconds,
         color = color,
     )
+
 }
 
 @Composable

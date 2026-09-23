@@ -13,7 +13,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            DemoOrbScreen()
+           // DemoOrbScreen()
+            OrbAnimationPlaygroundScreen()
         }
     }
 }
