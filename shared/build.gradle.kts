@@ -5,12 +5,11 @@ plugins {
     alias(libs.plugins.androidMultiplatformLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-    `maven-publish`
-    signing
+    alias(libs.plugins.vanniktechMavenPublish)
 }
 
 group = "io.github.valentinerutto"
-version = "0.1.0"
+version = "1.0.0"
 
 kotlin {
     listOf(
@@ -78,67 +77,41 @@ dependencies {
     androidRuntimeClasspath(libs.compose.uiTooling)
 }
 
-publishing {
-    publications {
-        withType<MavenPublication>().configureEach {
-            groupId = "io.github.valentinerutto"
-            artifactId = "orbmotion"
-            version = "0.1.0"
+mavenPublishing {
+    // Publishes KMP metadata and Android/iOS variants with one root coordinate:
+    // io.github.valentinerutto:orbmotion:<version>.
+    publishToMavenCentral()
+    signAllPublications()
+    coordinates(group.toString(), "orbmotion", version.toString())
 
-            pom {
-                name.set("OrbMotion")
-                description.set("Kotlin Multiplatform orb animation library")
-                url.set("https://github.com/valentineRutto/OrbMotionKMPLibrary")
+    pom {
+        name.set("OrbMotion")
+        description.set("Kotlin Multiplatform orb animation library")
+        inceptionYear.set("2026")
+        url.set("https://github.com/valentineRutto/OrbMotionKMPLibrary")
 
-                licenses {
-                    license {
-                        name.set("MIT License")
-                        url.set("https://opensource.org/licenses/MIT")
-                    }
-                }
-
-                developers {
-                    developer {
-                        id.set("valentinerutto")
-                        name.set("Valentine Rutto")
-                        email.set("vruttoapps@gmail.com")
-                    }
-                }
-
-                scm {
-                    connection.set("scm:git:github.com/valentineRutto/OrbMotionKMPLibrary.git")
-                    developerConnection.set("scm:git:ssh://git@github.com/valentineRutto/OrbMotionKMPLibrary.git")
-                    url.set("https://github.com/valentineRutto/OrbMotionKMPLibrary")
-                }
+        licenses {
+            license {
+                name.set("MIT License")
+                url.set("https://opensource.org/licenses/MIT")
+                distribution.set("https://opensource.org/licenses/MIT")
             }
         }
-    }
 
-    repositories {
-        mavenLocal()
-        maven {
-            name = "MavenCentral"
-            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            credentials {
-                // Use Gradle properties or environment variables for credentials
-                username = project.findProperty("ossrhUsername") as String? ?: System.getenv("OSSRH_USERNAME")
-                password = project.findProperty("ossrhPassword") as String? ?: System.getenv("OSSRH_PASSWORD")
+        developers {
+            developer {
+                id.set("valentinerutto")
+                name.set("Valentine Rutto")
+                email.set("vruttoapps@gmail.com")
+                organization.set("Valentine Rutto")
+                organizationUrl.set("https://github.com/valentineRutto")
             }
+        }
+
+        scm {
+            connection.set("scm:git:github.com/valentineRutto/OrbMotionKMPLibrary.git")
+            developerConnection.set("scm:git:ssh://git@github.com/valentineRutto/OrbMotionKMPLibrary.git")
+            url.set("https://github.com/valentineRutto/OrbMotionKMPLibrary")
         }
     }
 }
-
-val hasSigningCredentials = project.findProperty("signingKey") != null || System.getenv("GPG_PRIVATE_KEY") != null
-
-if (hasSigningCredentials) {
-    signing {
-        val signingKey = project.findProperty("signingKey") as String?
-            ?: System.getenv("GPG_PRIVATE_KEY")
-        val signingPassword = project.findProperty("signingPassword") as String?
-            ?: System.getenv("GPG_PASSWORD")
-
-        useInMemoryPgpKeys(signingKey, signingPassword)
-        sign(publishing.publications)
-    }
-}
-
