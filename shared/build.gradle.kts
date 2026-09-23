@@ -15,7 +15,6 @@ kotlin {
     // iOS targets
     iosArm64()
     iosSimulatorArm64()
-    iosX64()
 
     // iOS framework configuration
     targets
@@ -109,7 +108,7 @@ mavenPublishing {
             license {
                 name.set("MIT License")
                 url.set("https://opensource.org/licenses/MIT")
-                distribution.set("repo")
+                distribution.set("https://opensource.org/licenses/MIT")
             }
         }
 
