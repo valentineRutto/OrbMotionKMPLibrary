@@ -16,6 +16,7 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
+
     // iOS framework configuration
     targets
         .filterIsInstance<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>()
