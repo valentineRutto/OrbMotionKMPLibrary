@@ -85,7 +85,7 @@ mavenPublishing {
     coordinates(
         groupId = "io.github.valentinerutto",
         artifactId = "orbmotion",
-        version = "1.0.2"
+        version = "1.0.1"
     )
 
     publishToMavenCentral()
