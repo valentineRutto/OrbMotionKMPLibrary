@@ -33,3 +33,43 @@ If you're building for the web, please use the [original Thinking Orbs implement
 MIT © Valentine Rutto — see [`LICENSE`](LICENSE).
 
 The original *Thinking Orbs* project is MIT © Jakub Antalik. The original MIT license and required copyright notice are preserved in [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
+
+## Installation
+
+Add the library to your Gradle module (Kotlin DSL):
+
+```
+implementation("io.github.valentinerutto:orbmotion:1.0.0")
+```
+
+## Usage
+
+This library exposes a single public composable for consumers: `AnimatedThinkingOrb`. It internally drives animation timing so you don't need to manage `elapsedSeconds` yourself.
+
+Basic example:
+
+```kotlin
+AnimatedThinkingOrb(
+	modifier = Modifier.size(120.dp),
+	state = OrbState.SEARCHING,
+	size = 120f,
+	speed = 1f,
+	color = Color.White,
+)
+```
+
+Supported `OrbState` values:
+
+- `SEARCHING`
+- `COMPOSING`
+- `SOLVING`
+- `LISTENING`
+- `WORKING`
+- `CONNECTING`
+- `WEAVING`
+- `BREATHING`
+- `SHAPING`
+
+If you need lower-level control (for embedding in custom rendering loops), the library contains an internal `ThinkingOrb` composable which accepts an `elapsedSeconds` parameter — but this is not part of the public API surface by default.
+
+If you'd like the library to expose the lower-level API, or to provide alternate wrappers (e.g., frame-synced vs. time-synced variants), open an issue or submit a PR.

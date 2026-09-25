@@ -5,7 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.ComposeUIViewController
-import com.valentinerutto.orbmotion.orbs.OrbLoadingIndicator
+import com.valentinerutto.orbmotion.orbs.AnimatedThinkingOrb
 import com.valentinerutto.orbmotion.orbs.OrbSize
 import com.valentinerutto.orbmotion.orbs.OrbState
 import com.valentinerutto.orbmotion.orbs.OrbTheme
@@ -25,12 +25,11 @@ public fun makeOrbLoadingIndicatorViewController(
         else -> OrbSize.Custom(sizeDp.dp)
     }
 
-    OrbLoadingIndicator(
+    AnimatedThinkingOrb(
         modifier = Modifier.fillMaxSize(),
         state = state,
         size = orbSize.floatValue,
         speed = speed,
-        elapsedSeconds = 0f,
         color = Color(colorArgb),
     )
 }

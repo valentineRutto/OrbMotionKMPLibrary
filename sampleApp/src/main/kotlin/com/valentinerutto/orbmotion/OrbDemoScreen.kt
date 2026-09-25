@@ -49,10 +49,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.valentinerutto.orbmotion.orbs.AnimatedThinkingOrb
 import com.valentinerutto.orbmotion.orbs.OrbGallery
 import com.valentinerutto.orbmotion.orbs.OrbState
-import com.valentinerutto.orbmotion.orbs.ThinkingOrb
+import com.valentinerutto.orbmotion.orbs.AnimatedThinkingOrb
 import com.valentinerutto.orbmotion.orbs.ThinkingOrbGallery
 import com.valentinerutto.orbmotion.orbs.formatFloat
 import kotlinx.coroutines.delay
@@ -117,7 +116,6 @@ import kotlinx.coroutines.delay
                         val availableSize = minOf(maxWidth.value, maxHeight.value)
                         val displayOrbSize =
                             (orbSize.coerceAtMost(availableSize * 0.5f)).coerceAtLeast(120f)
-
 
 
                         AnimatedThinkingOrb(
@@ -384,7 +382,7 @@ import kotlinx.coroutines.delay
     ): String {
         val hex = color.toArgb().toUInt().toString(16).uppercase().padStart(8, '0')
         return buildString {
-            appendLine("ThinkingOrb(")
+            appendLine("AnimatedThinkingOrb(")
             appendLine("    modifier = Modifier.size(${size.toInt()}.dp),")
             appendLine("    state = OrbState.${state.name},")
             appendLine("    size = ${formatFloat(size)},")

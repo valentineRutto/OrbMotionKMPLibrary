@@ -438,12 +438,12 @@ private fun buildOrbCodeSnippet(
 ): String {
     val hex = color.toArgb().toUInt().toString(16).uppercase().padStart(8, '0')
     return buildString {
-        appendLine("ThinkingOrb(")
+        appendLine("AnimatedThinkingOrb(")
         appendLine("    modifier = Modifier.size(${size.toInt()}.dp),")
         appendLine("    state = OrbState.${state.name},")
         appendLine("    size = ${formatFloat(size)},")
         appendLine("    speed = ${formatFloat(speed)},")
-        append("    color = Color(0x${hex}),")
+            append("    color = Color(0x${hex}),")
         appendLine()
         append(")")
     }

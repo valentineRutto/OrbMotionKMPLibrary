@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import com.example.orbs.engine.FrameDispatcher
 
 @Composable
-fun ThinkingOrb(
+internal fun ThinkingOrb(
     modifier: Modifier = Modifier,
     state: OrbState = OrbState.CONNECTING,
     size: Float = 64f,

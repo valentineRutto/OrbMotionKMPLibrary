@@ -43,18 +43,17 @@ public fun ThinkingOrbGallery(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         items(OrbState.entries) { state ->
-            val elapsed = remember(state.name) { mutableFloatStateOf(0f) }
+                    val elapsed = remember(state.name) { mutableFloatStateOf(0f) }
             Box(
                 modifier = Modifier.padding(8.dp),
                 contentAlignment = Alignment.Center,
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    ThinkingOrb(
+                    AnimatedThinkingOrb(
                         modifier = Modifier.size(size.dpValue),
                         state = state,
                         size = size.floatValue,
                         speed = speed,
-                        elapsedSeconds = elapsed.floatValue,
                         color = orbColor,
                     )
                     Text(
