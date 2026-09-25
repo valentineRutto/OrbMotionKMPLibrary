@@ -27,22 +27,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.valentinerutto.orbmotion.orbs.OrbLoadingIndicator
+import com.valentinerutto.orbmotion.orbs.AnimatedThinkingOrb
 import com.valentinerutto.orbmotion.orbs.OrbState
-import kotlinx.coroutines.delay
 
 @Composable
 fun DemoOrbScreen() {
-    var elapsed by remember { mutableFloatStateOf(0f) }
+
     var selectedState by remember { mutableStateOf(OrbState.CONNECTING) }
     var speed by remember { mutableFloatStateOf(1f) }
 
-    LaunchedEffect(Unit) {
-        while (true) {
-            delay(16)
-            elapsed += 0.016f
-        }
-    }
 
     Surface(color = Color.Black, modifier = Modifier.fillMaxSize()) {
         Column(
@@ -90,12 +83,11 @@ fun DemoOrbScreen() {
                     .background(Color.Black),
                 contentAlignment = Alignment.Center
             ) {
-                OrbLoadingIndicator(
+                AnimatedThinkingOrb(
                     modifier = Modifier.size(180.dp),
                     state = selectedState,
                     size = 180f,
                     speed = speed,
-                    elapsedSeconds = elapsed,
                     color = Color.White
                 )
             }

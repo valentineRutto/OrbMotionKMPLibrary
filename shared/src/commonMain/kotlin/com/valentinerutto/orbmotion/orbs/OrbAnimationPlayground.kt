@@ -118,12 +118,12 @@ internal fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
                     val displayOrbSize =
                         (orbSize.coerceAtMost(availableSize * 0.5f)).coerceAtLeast(120f)
 
-                    ThinkingOrb(
+                    AnimatedThinkingOrb(
                         modifier = Modifier.size(displayOrbSize.dp),
                         state = selectedState,
                         size = orbSize,
                         speed = speed,
-                        elapsedSeconds = elapsed,
+                      //  elapsedSeconds = elapsed,
                         color = orbColor,
                     )
                 }

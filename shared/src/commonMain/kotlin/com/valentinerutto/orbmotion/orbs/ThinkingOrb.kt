@@ -2,33 +2,17 @@ package com.valentinerutto.orbmotion.orbs
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import com.example.orbs.engine.FrameDispatcher
-
-@Composable
-public fun OrbLoadingIndicator(
-    modifier: Modifier = Modifier,
-    state: OrbState = OrbState.CONNECTING,
-    size: Float = 64f,
-    speed: Float = 1f,
-    elapsedSeconds: Float = 0f,
-    color: Color = Color.White,
-) {
-
-    ThinkingOrb(
-        modifier = modifier,
-        state = state,
-        size = size,
-        speed = speed,
-        elapsedSeconds = elapsedSeconds,
-        color = color,
-    )
-
-}
 
 @Composable
 fun ThinkingOrb(
@@ -67,4 +51,36 @@ fun ThinkingOrb(
             )
         }
     }
+}
+
+@Composable
+public fun AnimatedThinkingOrb(
+    modifier: Modifier = Modifier,
+    state: OrbState = OrbState.CONNECTING,
+    size: Float = 64f,
+    speed: Float = 1f,
+    color: Color = Color.White
+) {
+    var elapsed by remember { mutableFloatStateOf(0f) }
+
+    LaunchedEffect(state, size, speed) {
+        var lastFrameNanos = 0L
+        while (true) {
+            val frameNanos = withFrameNanos { it }
+            if (lastFrameNanos != 0L) {
+                val dt = (frameNanos - lastFrameNanos) / 1_000_000_000f
+                elapsed += dt * speed
+            }
+            lastFrameNanos = frameNanos
+        }
+    }
+
+    ThinkingOrb(
+        modifier = modifier,
+        state = state,
+        size = size,
+        speed = speed,
+        elapsedSeconds = elapsed,
+        color = color
+    )
 }

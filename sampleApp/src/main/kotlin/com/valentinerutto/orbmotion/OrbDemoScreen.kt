@@ -49,6 +49,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.valentinerutto.orbmotion.orbs.AnimatedThinkingOrb
 import com.valentinerutto.orbmotion.orbs.OrbGallery
 import com.valentinerutto.orbmotion.orbs.OrbState
 import com.valentinerutto.orbmotion.orbs.ThinkingOrb
@@ -59,6 +60,7 @@ import kotlinx.coroutines.delay
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
      fun OrbAnimationPlaygroundScreen(modifier: Modifier = Modifier) {
+
         var elapsed by remember { mutableFloatStateOf(0f) }
         var selectedState by remember { mutableStateOf(OrbState.SEARCHING) }
         var orbSize by remember { mutableFloatStateOf(360f) }
@@ -111,18 +113,18 @@ import kotlinx.coroutines.delay
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
+
                         val availableSize = minOf(maxWidth.value, maxHeight.value)
                         val displayOrbSize =
                             (orbSize.coerceAtMost(availableSize * 0.5f)).coerceAtLeast(120f)
 
 
 
-                        ThinkingOrb(
+                        AnimatedThinkingOrb(
                     modifier = Modifier.size(displayOrbSize.dp),
                     state = selectedState,
                     size = orbSize,
                     speed = speed,
-                    elapsedSeconds = elapsed,
                     color = orbColor
                 )
 
