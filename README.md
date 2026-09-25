@@ -52,7 +52,7 @@ Basic example:
 AnimatedThinkingOrb(
 	modifier = Modifier.size(120.dp),
 	state = OrbState.SEARCHING,
-	size = 120f,
+	size = OrbSize.Large,
 	speed = 1f,
 	color = Color.White,
 )
@@ -69,6 +69,9 @@ Supported `OrbState` values:
 - `WEAVING`
 - `BREATHING`
 - `SHAPING`
+
+  Supported `OrbSize` values:
+
 
 If you need lower-level control (for embedding in custom rendering loops), the library contains an internal `ThinkingOrb` composable which accepts an `elapsedSeconds` parameter — but this is not part of the public API surface by default.
 
