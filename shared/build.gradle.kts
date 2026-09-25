@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "io.github.valentinerutto"
-version = "1.0.0"
+version = "1.0.2"
 
 kotlin {
     // iOS targets
@@ -85,7 +85,7 @@ mavenPublishing {
     coordinates(
         groupId = "io.github.valentinerutto",
         artifactId = "orbmotion",
-        version = "1.0.0"
+        version = "1.0.2"
     )
 
     publishToMavenCentral()
