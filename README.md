@@ -71,6 +71,10 @@ Supported `OrbState` values:
 - `SHAPING`
 
   Supported `OrbSize` values:
+- `OrbSize.Large` 
+- `OrbSize.Small`
+- `OrbSize.Custom(36.dp)`
+- `any float value like: 120f,`
 
 
 If you need lower-level control (for embedding in custom rendering loops), the library contains an internal `ThinkingOrb` composable which accepts an `elapsedSeconds` parameter — but this is not part of the public API surface by default.
