@@ -17,13 +17,27 @@ This library exposes a single public composable for consumers: `AnimatedThinking
 Basic example:
 
 ```kotlin
-AnimatedThinkingOrb(
-	modifier = Modifier.size(120.dp),
-	state = OrbState.SEARCHING,
-	size = OrbSize.Large,
-	speed = 1f,
-	color = Color.White,
-)
+  Column(
+                    modifier = Modifier.fillMaxWidth().fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    
+                    var selectedState by remember { mutableStateOf(OrbState.WEAVING) }
+                    var orbSize by remember { mutableFloatStateOf(360f) }
+                    var speed by remember { mutableFloatStateOf(1f) }
+                    var orbColor by remember { mutableStateOf(Color.White) }
+
+
+                    AnimatedThinkingOrb(
+                        modifier = Modifier.size(120.dp),
+                        state = selectedState,
+                        size = orbSize,
+                        speed = speed,
+                        color = orbColor
+                    )
+                    
+
+            }
 ```
 
 Supported `OrbState` values:
