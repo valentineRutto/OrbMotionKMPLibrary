@@ -7,7 +7,7 @@ Animated, monochrome “thinking orb” indicators for AI and agent UIs — buil
 Add the library to your Gradle module (Kotlin DSL):
 
 ```
-implementation("io.github.valentinerutto:orbmotion:1.0.0")
+implementation("io.github.valentinerutto:orbmotion:1.0.1")
 ```
 
 ## Usage
