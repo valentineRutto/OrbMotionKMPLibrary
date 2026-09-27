@@ -63,32 +63,6 @@ If you need lower-level control (for embedding in custom rendering loops), the l
 
 If you'd like the library to expose the lower-level API, or to provide alternate wrappers (e.g., frame-synced vs. time-synced variants), open an issue or submit a PR.
 
-## Credit & Attribution
-
-**OrbsMotion-kmp is an unofficial Kotlin/Compose Multiplatform port of [Thinking Orbs](https://libraries.dev/orbs) by [Jakub Antalik](https://github.com/Jakubantalik).**
-
-The original *Thinking Orbs* is a dotted, canvas-based web animation library featuring expressive states such as `working`, `searching`, `solving`, `listening`, `composing`, and `shaping`.
-
-This project ports the original animation concepts and implementations from JavaScript/Canvas to **Kotlin and Compose Multiplatform**, adapting the rendering and animation logic to Compose's `Canvas` and `DrawScope` APIs.
-
-Original project:
-
-* **Thinking Orbs:** https://libraries.dev/orbs
-* **Source:** https://github.com/Jakubantalik/thinking-orbs
-* **Author:** Jakub Antalik
-* **License:** MIT
-
-The original library features expressive states such as `SEARCHING`, `COMPOSING`, `SOLVING`, `LISTENING`, `WORKING`, and `SHAPING`.
-
-This Kotlin/Compose Multiplatform port additionally includes `BREATHING`, `CONNECTING`, and `WEAVING`.
-
-**Original animation design and implementation:** © Jakub Antalik
-**Kotlin/Compose Multiplatform port:** © Valentine Rutto
-
-This project is **not affiliated with or endorsed by Jakub Antalik**.
-
-If you're building for the web, please use the [Original Thinking Orbs](https://libraries.dev/orbs).
-
 ## iOS Usage
 
 The shared module exposes lightweight interop helpers to embed the Compose UI in iOS apps. The easiest entry points are the Kotlin/Native top-level functions that return a `UIViewController`.
@@ -134,6 +108,33 @@ Notes:
 - `stateOrdinal` maps to `OrbState.entries` (use ordinal numbers or add your own Swift enum wrapper).
 - `colorArgb` is an ARGB hex value (e.g., `0xFFFFFFFF` for white).
 - If you need more Swift-friendly APIs (e.g., `UIColor` parameters), I can add convenience wrappers in `shared/src/iosMain`.
+
+## Credit & Attribution
+
+**OrbsMotion-kmp is an unofficial Kotlin/Compose Multiplatform port of [Thinking Orbs](https://libraries.dev/orbs) by [Jakub Antalik](https://github.com/Jakubantalik).**
+
+The original *Thinking Orbs* is a dotted, canvas-based web animation library featuring expressive states such as `working`, `searching`, `solving`, `listening`, `composing`, and `shaping`.
+
+This project ports the original animation concepts and implementations from JavaScript/Canvas to **Kotlin and Compose Multiplatform**, adapting the rendering and animation logic to Compose's `Canvas` and `DrawScope` APIs.
+
+Original project:
+
+* **Thinking Orbs:** https://libraries.dev/orbs
+* **Source:** https://github.com/Jakubantalik/thinking-orbs
+* **Author:** Jakub Antalik
+* **License:** MIT
+
+The original library features expressive states such as `SEARCHING`, `COMPOSING`, `SOLVING`, `LISTENING`, `WORKING`, and `SHAPING`.
+
+This Kotlin/Compose Multiplatform port additionally includes `BREATHING`, `CONNECTING`, and `WEAVING`.
+
+**Original animation design and implementation:** © Jakub Antalik
+**Kotlin/Compose Multiplatform port:** © Valentine Rutto
+
+This project is **not affiliated with or endorsed by Jakub Antalik**.
+
+If you're building for the web, please use the [Original Thinking Orbs](https://libraries.dev/orbs).
+
 
 ## License
 
