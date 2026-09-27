@@ -89,6 +89,52 @@ This project is **not affiliated with or endorsed by Jakub Antalik**.
 
 If you're building for the web, please use the [Original Thinking Orbs](https://libraries.dev/orbs).
 
+## iOS Usage
+
+The shared module exposes lightweight interop helpers to embed the Compose UI in iOS apps. The easiest entry points are the Kotlin/Native top-level functions that return a `UIViewController`.
+
+Example (UIKit):
+
+```swift
+// Call the iOS interop function exported by the shared framework
+let orbVC = OrbIosInteropKt.makeOrbLoadingIndicatorViewController(
+    stateOrdinal: 0,    // OrbState index (e.g., 0 = SEARCHING)
+    sizeDp: 64,
+    speed: 1.0,
+    colorArgb: 0xFFFFFFFF
+)
+addChild(orbVC)
+orbVC.view.frame = view.bounds
+view.addSubview(orbVC.view)
+orbVC.didMove(toParent: self)
+```
+
+Example (SwiftUI):
+
+```swift
+import SwiftUI
+
+struct OrbViewControllerWrapper: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> UIViewController {
+        OrbIosInteropKt.makeOrbLoadingIndicatorViewController(stateOrdinal: 0, sizeDp: 64, speed: 1.0, colorArgb: 0xFFFFFFFF)
+    }
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
+}
+
+struct ContentView: View {
+    var body: some View {
+        OrbViewControllerWrapper()
+            .edgesIgnoringSafeArea(.all)
+    }
+}
+```
+
+Notes:
+- The helper `makeOrbLoadingIndicatorViewController` returns a `UIViewController` embedding `AnimatedThinkingOrb`.
+- `stateOrdinal` maps to `OrbState.entries` (use ordinal numbers or add your own Swift enum wrapper).
+- `colorArgb` is an ARGB hex value (e.g., `0xFFFFFFFF` for white).
+- If you need more Swift-friendly APIs (e.g., `UIColor` parameters), I can add convenience wrappers in `shared/src/iosMain`.
+
 ## License
 
 MIT © Valentine Rutto — see [`LICENSE`](LICENSE).
