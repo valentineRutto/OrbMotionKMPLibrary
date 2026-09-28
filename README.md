@@ -21,9 +21,10 @@ https://github.com/user-attachments/assets/4bb89db1-187d-4cb7-a12c-a389ee922e28
 
 For  Kotlin Multiplatform projects, add the dependency to your `commonMain` source set:
 
+With Version Catalog
+
 ```kotlin
 
-```With Version Catalog
 
 ```toml
 [versions]
