@@ -1,3 +1,4 @@
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.valentinerutto/orbmotion?logo=apachemaven&label=Maven%20Central)](https://central.sonatype.com/artifact/io.github.valentinerutto/orbmotion)
 # OrbMotion
 
 **[OrbsMotion](https://central.sonatype.com/artifact/io.github.valentinerutto/orbmotion) is a Kotlin Multiplatform (KMP) animation library built with Compose Multiplatform, providing shared, expressive UI animations for Android and iOS.**
