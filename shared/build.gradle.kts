@@ -22,10 +22,12 @@ kotlin {
         .filterIsInstance<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>()
         .forEach { iosTarget ->
             iosTarget.binaries.framework {
-                baseName = "OrbMotion"
+                baseName = "Shared"
                 isStatic = false
             }
         }
+
+
 
     // Android
     android {
