@@ -16,7 +16,7 @@ For  Kotlin Multiplatform projects, add the dependency to your `commonMain` sour
 
 ```kotlin
 
-
+```With Version Catalog
 
 ```toml
 [versions]
@@ -33,6 +33,24 @@ kotlin {
     }
 }
 ```
+
+Without a Version Catalog
+
+You can also add the dependency directly:
+
+```kotlin
+commonMain.dependencies {
+    implementation("io.github.valentinerutto:orbmotion:1.0.1")
+}
+```
+
+## Supported Platforms
+
+OrbMotion currently supports:
+
+- Android
+- iOS (iosArm64)
+- iOS Simulator (iosSimulatorArm64)
 
 
 ## UI Preview of Supported `OrbState` values:
