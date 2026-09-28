@@ -8,6 +8,13 @@ It provides customizable animated orbs for AI assistants, agents, and interactiv
 
 Build once with shared Compose UI and reuse the same animations across your Android and iOS applications.
 
+## Demo
+
+
+https://github.com/user-attachments/assets/4bb89db1-187d-4cb7-a12c-a389ee922e28
+
+
+
 ## Installation
 
 [OrbMotion](https://central.sonatype.com/artifact/io.github.valentinerutto/orbmotion) is published to Maven Central.
