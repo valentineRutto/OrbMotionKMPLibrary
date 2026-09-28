@@ -1,7 +1,8 @@
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.valentinerutto/orbmotion?logo=apachemaven&label=Maven%20Central)](https://central.sonatype.com/artifact/io.github.valentinerutto/orbmotion)
+
 # OrbMotion
 
-**[OrbsMotion](https://central.sonatype.com/artifact/io.github.valentinerutto/orbmotion) is a Kotlin Multiplatform (KMP) animation library built with Compose Multiplatform, providing shared, expressive UI animations for Android and iOS.**
+**OrbMotion is a Kotlin Multiplatform animation library for expressive AI and agent activity indicators, built with Compose Multiplatform for Android and iOS.**
 
 It provides customizable animated orbs for AI assistants, agents, and interactive interfaces, with support for different states, sizes, speeds, and colors.
 
@@ -9,13 +10,15 @@ Build once with shared Compose UI and reuse the same animations across your Andr
 
 ## Installation
 
-[OrbsMotion-kmp](https://central.sonatype.com/artifact/io.github.valentinerutto/orbmotion) is published to Maven Central.
+[OrbMotion](https://central.sonatype.com/artifact/io.github.valentinerutto/orbmotion) is published to Maven Central.
 
 For  Kotlin Multiplatform projects, add the dependency to your `commonMain` source set:
 
 ```kotlin
 
 
+
+```toml
 [versions]
 orbmotion = "1.0.1"
 
@@ -82,7 +85,7 @@ The orb size can be customized using the following options:
 
 ## Credit & Attribution
 
-**OrbsMotion-kmp is an unofficial Kotlin/Compose Multiplatform adaptation inspired by ****[Thinking Orbs](https://libraries.dev/orbs)****, originally created by ****[Jakub Antalik](https://github.com/Jakubantalik)****.**
+**OrbMotion is an unofficial Kotlin/Compose Multiplatform adaptation inspired by [Thinking Orbs](https://libraries.dev/orbs), originally created by [Jakub Antalik](https://github.com/Jakubantalik).**
 
 The original *Thinking Orbs* is a dotted, canvas-based web animation library featuring expressive animation states.
 
