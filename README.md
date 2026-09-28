@@ -9,6 +9,14 @@ Add the library to your Gradle module (Kotlin DSL):
 ```
 implementation("io.github.valentinerutto:orbmotion:1.0.1")
 ```
+## UI Preview of Supported `OrbState` values:
+
+| | | |
+| :---: | :---: | :---: |
+| **SEARCHING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/6ceb9b90-1f0b-45be-bc13-15ed813044f5" /> | **COMPOSING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/e084e746-4001-4cd6-8127-81b868d7df5f" /> | **SOLVING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/74a1414f-784e-4a15-bfd0-272eb1013f99" /> |
+| **WEAVING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/2fc7ee2f-ed71-42c8-9ef1-76d33d84a6e1" /> | **BREATHING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/6f03124d-876a-4daf-a9da-91123c51a3ec" /> | **SHAPING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/8c006bf8-3056-4a10-afb8-a3ae9d938a9b" /> |
+| **LISTENING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/8429b6b9-bb27-4d9b-bff4-1a0f56b6f88a" /> | **WORKING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/4c5cb335-b176-42b4-87c6-2de9b2122557" /> | **CONNECTING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/bd4b58a9-7281-495b-8db5-da33828a7aaa" /> |
+
 
 ## Usage
 
@@ -40,15 +48,8 @@ Basic example:
             }
 ```
 
-##UI Preview of Supported `OrbState` values:
 
-| | | |
-| :---: | :---: | :---: |
-| **SEARCHING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/6ceb9b90-1f0b-45be-bc13-15ed813044f5" /> | **COMPOSING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/e084e746-4001-4cd6-8127-81b868d7df5f" /> | **SOLVING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/74a1414f-784e-4a15-bfd0-272eb1013f99" /> |
-| **LISTENING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/8429b6b9-bb27-4d9b-bff4-1a0f56b6f88a" /> | ** WORKING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/4c5cb335-b176-42b4-87c6-2de9b2122557" /> | **CONNECTING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/bd4b58a9-7281-495b-8db5-da33828a7aaa" /> |
-| **WEAVING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/2fc7ee2f-ed71-42c8-9ef1-76d33d84a6e1" /> | **BREATHING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/6f03124d-876a-4daf-a9da-91123c51a3ec" /> | **SHAPING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/8c006bf8-3056-4a10-afb8-a3ae9d938a9b" /> |
-
-Supported `OrbSize` values:
+## Supported `OrbSize` values:
 - `OrbSize.Large`
 - `OrbSize.Small`
 - `OrbSize.Custom(36.dp)`
