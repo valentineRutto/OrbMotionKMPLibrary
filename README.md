@@ -40,36 +40,13 @@ Basic example:
             }
 ```
 
-Supported `OrbState` values:
+##UI Preview of Supported `OrbState` values:
 
-- `SEARCHING`
-  <img width="800" height="1777" alt="searching-vid-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/ac91abce-d27a-4ba1-8006-65bc59a77e70" />
-
-- `COMPOSING`
-<img width="800" height="1777" alt="composing-vid-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/243caef6-3fc5-4e79-9526-24df4cbe5a39" />
-
-- `SOLVING`
-  <img width="800" height="1777" alt="solving-vid-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/4191610a-deef-44b9-96f0-4c7d684ada12" />
-
-- `LISTENING`
-  <img width="800" height="1777" alt="listening-vid-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/cf338d1b-4d87-4ca8-946f-4f1dce17753c" />
-
-- `WORKING`
-  <img width="800" height="1777" alt="working-vid-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/cd0428e3-0a8c-473b-84fb-fc787fb95e98" />
-
-  
-- `CONNECTING`
-<img width="800" height="1777" alt="connecting-vid-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/6de0f4e4-b66d-45c2-8862-48adc3bfde06" />
-
-- `WEAVING`
-  <img width="800" height="1777" alt="weaving-vid-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/4e44cb62-2da1-4e01-b67b-ddf6f37f4b8e" />
-
-- `BREATHING`
-<img width="800" height="1777" alt="breathing-vid-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/0ea0dbab-6d73-49eb-bce8-b33e73a71cda" />
-
-- `SHAPING`
-  <img width="800" height="1777" alt="shaping-vid-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/3e1b9df8-f539-4561-b49e-102126c12dce" />
-
+| | | |
+| :---: | :---: | :---: |
+| **SEARCHING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/6ceb9b90-1f0b-45be-bc13-15ed813044f5" /> | **COMPOSING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/e084e746-4001-4cd6-8127-81b868d7df5f" /> | **SOLVING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/74a1414f-784e-4a15-bfd0-272eb1013f99" /> |
+| **LISTENING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/8429b6b9-bb27-4d9b-bff4-1a0f56b6f88a" /> | ** WORKING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/4c5cb335-b176-42b4-87c6-2de9b2122557" /> | **CONNECTING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/bd4b58a9-7281-495b-8db5-da33828a7aaa" /> |
+| **WEAVING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/2fc7ee2f-ed71-42c8-9ef1-76d33d84a6e1" /> | **BREATHING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/6f03124d-876a-4daf-a9da-91123c51a3ec" /> | **SHAPING**<br><img width="250" height="250" src="https://github.com/user-attachments/assets/8c006bf8-3056-4a10-afb8-a3ae9d938a9b" /> |
 
 Supported `OrbSize` values:
 - `OrbSize.Large`
