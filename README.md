@@ -1,6 +1,6 @@
 # OrbsMotion-kmp
 
-Animated, monochrome “thinking orb” indicators for AI and agent UIs — built with **Kotlin Compose Multiplatform** for Android and iOS.
+[OrbsMotion](https://central.sonatype.com/artifact/io.github.valentinerutto/orbmotion) is a **Kotlin Compose Multiplatform/shared compose ui** animation library for expressive AI and agent activity states, bringing “thinking” animations to Android and iOS with customizable motion, speed, size, and color.
 
 ## Installation
 
@@ -43,112 +43,65 @@ This library exposes a single public composable for consumers: `AnimatedThinking
 Basic example:
 
 ```kotlin
-  Column(
-                    modifier = Modifier.fillMaxWidth().fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    
-                    var selectedState by remember { mutableStateOf(OrbState.WEAVING) }
-                    var orbSize by remember { mutableFloatStateOf(360f) }
-                    var speed by remember { mutableFloatStateOf(1f) }
-                    var orbColor by remember { mutableStateOf(Color.White) }
-
-
-                    AnimatedThinkingOrb(
-                        modifier = Modifier.size(120.dp),
-                        state = selectedState,
-                        size = orbSize,
-                        speed = speed,
-                        color = orbColor
-                    )
-                    
-
-            }
+@Composable
+fun ThinkingIndicator() {
+    AnimatedThinkingOrb(
+        state = OrbState.WEAVING,
+        size = 120f,
+        speed = 1f,
+        color = Color.White
+    )
+}
 ```
 
 
-## Supported `OrbSize` values:
+## Customization
+
+`AnimatedThinkingOrb` can be customized using four main properties:
+
+- **`state`** — choose the animation state, e.g. `OrbState.WEAVING`
+- **`size`** — control the orb size 
+- **`speed`** — adjust the animation speed
+- **`color`** — set the orb color
+
+### Orb Size
+
+The orb size can be customized using the following options:
+
 - `OrbSize.Large`
 - `OrbSize.Small`
 - `OrbSize.Custom(36.dp)`
-- `any float value like: 120f,`
+- Any `Float` value, e.g. `120f`
 
 
-If you need lower-level control (for embedding in custom rendering loops), the library contains an internal `ThinkingOrb` composable which accepts an `elapsedSeconds` parameter — but this is not part of the public API surface by default.
-
-If you'd like the library to expose the lower-level API, or to provide alternate wrappers (e.g., frame-synced vs. time-synced variants), open an issue or submit a PR.
-
-## iOS Usage
-
-The shared module exposes lightweight interop helpers to embed the Compose UI in iOS apps. The easiest entry points are the Kotlin/Native top-level functions that return a `UIViewController`.
-
-Example (UIKit):
-
-```swift
-// Call the iOS interop function exported by the shared framework
-let orbVC = OrbIosInteropKt.makeOrbLoadingIndicatorViewController(
-    stateOrdinal: 0,    // OrbState index (e.g., 0 = SEARCHING)
-    sizeDp: 64,
-    speed: 1.0,
-    colorArgb: 0xFFFFFFFF
-)
-addChild(orbVC)
-orbVC.view.frame = view.bounds
-view.addSubview(orbVC.view)
-orbVC.didMove(toParent: self)
-```
-
-Example (SwiftUI):
-
-```swift
-import SwiftUI
-
-struct OrbViewControllerWrapper: UIViewControllerRepresentable {
-    func makeUIViewController(context: Context) -> UIViewController {
-        OrbIosInteropKt.makeOrbLoadingIndicatorViewController(stateOrdinal: 0, sizeDp: 64, speed: 1.0, colorArgb: 0xFFFFFFFF)
-    }
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
-}
-
-struct ContentView: View {
-    var body: some View {
-        OrbViewControllerWrapper()
-            .edgesIgnoringSafeArea(.all)
-    }
-}
-```
-
-Notes:
-- The helper `makeOrbLoadingIndicatorViewController` returns a `UIViewController` embedding `AnimatedThinkingOrb`.
-- `stateOrdinal` maps to `OrbState.entries` (use ordinal numbers or add your own Swift enum wrapper).
-- `colorArgb` is an ARGB hex value (e.g., `0xFFFFFFFF` for white).
-- If you need more Swift-friendly APIs (e.g., `UIColor` parameters), I can add convenience wrappers in `shared/src/iosMain`.
 
 ## Credit & Attribution
 
-**OrbsMotion-kmp is an unofficial Kotlin/Compose Multiplatform port of [Thinking Orbs](https://libraries.dev/orbs) by [Jakub Antalik](https://github.com/Jakubantalik).**
+**OrbsMotion-kmp is an unofficial Kotlin/Compose Multiplatform adaptation inspired by ****[Thinking Orbs](https://libraries.dev/orbs)****, originally created by ****[Jakub Antalik](https://github.com/Jakubantalik)****.**
 
-The original *Thinking Orbs* is a dotted, canvas-based web animation library featuring expressive states such as `working`, `searching`, `solving`, `listening`, `composing`, and `shaping`.
+The original *Thinking Orbs* is a dotted, canvas-based web animation library featuring expressive animation states.
 
-This project ports the original animation concepts and implementations from JavaScript/Canvas to **Kotlin and Compose Multiplatform**, adapting the rendering and animation logic to Compose's `Canvas` and `DrawScope` APIs.
+OrbsMotion-kmp brings the core visual concept and animation ideas of *Thinking Orbs* to **Kotlin and Compose Multiplatform**, adapting the original Canvas-based approach to Compose's `Canvas` and `DrawScope` APIs.
 
-Original project:
+The animations have also been **independently adapted and modified for this implementation**, including changes to animation behavior, timing, movement, and visual characteristics. 
 
-* **Thinking Orbs:** https://libraries.dev/orbs
-* **Source:** https://github.com/Jakubantalik/thinking-orbs
+### Original Project
+
+* **Thinking Orbs:** [libraries.dev/orbs](https://libraries.dev/orbs)
+* **Source:** [github.com/Jakubantalik/thinking-orbs](https://github.com/Jakubantalik/thinking-orbs)
 * **Author:** Jakub Antalik
 * **License:** MIT
 
-The original library features expressive states such as `SEARCHING`, `COMPOSING`, `SOLVING`, `LISTENING`, `WORKING`, and `SHAPING`.
+### Attribution
 
-This Kotlin/Compose Multiplatform port additionally includes `BREATHING`, `CONNECTING`, and `WEAVING`.
+The original *Thinking Orbs* project and its original animation concepts are credited to **Jakub Antalik**.
 
-**Original animation design and implementation:** © Jakub Antalik
-**Kotlin/Compose Multiplatform port:** © Valentine Rutto
+**Original project and animation concepts:** © Jakub Antalik
+**Kotlin/Compose Multiplatform adaptation and modifications:** © Valentine Rutto
 
-This project is **not affiliated with or endorsed by Jakub Antalik**.
+OrbsMotion-kmp is an **independent, unofficial project** and is not affiliated with, sponsored by, or endorsed by Jakub Antalik.
 
-If you're building for the web, please use the [Original Thinking Orbs](https://libraries.dev/orbs).
+If you're looking for the original web implementation, please visit the [Original Thinking Orbs](https://libraries.dev/orbs) project.
 
 
 ## License
