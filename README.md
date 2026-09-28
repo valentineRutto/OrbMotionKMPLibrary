@@ -43,18 +43,33 @@ Basic example:
 Supported `OrbState` values:
 
 - `SEARCHING`
+  <img width="800" height="1777" alt="searching-vid-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/ac91abce-d27a-4ba1-8006-65bc59a77e70" />
+
 - `COMPOSING`
-  <img width="240" height="536" alt="composing" src="https://github.com/user-attachments/assets/6aaa2a5e-1e62-4a1b-8aa3-38b1b311bb42" />
+<img width="800" height="1777" alt="composing-vid-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/243caef6-3fc5-4e79-9526-24df4cbe5a39" />
 
 - `SOLVING`
+  <img width="800" height="1777" alt="solving-vid-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/4191610a-deef-44b9-96f0-4c7d684ada12" />
+
 - `LISTENING`
+  <img width="800" height="1777" alt="listening-vid-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/cf338d1b-4d87-4ca8-946f-4f1dce17753c" />
+
 - `WORKING`
+  <img width="800" height="1777" alt="working-vid-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/cd0428e3-0a8c-473b-84fb-fc787fb95e98" />
+
+  
 - `CONNECTING`
+<img width="800" height="1777" alt="connecting-vid-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/6de0f4e4-b66d-45c2-8862-48adc3bfde06" />
+
 - `WEAVING`
+  <img width="800" height="1777" alt="weaving-vid-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/4e44cb62-2da1-4e01-b67b-ddf6f37f4b8e" />
+
 - `BREATHING`
-  <img width="240" height="534" alt="breathing" src="https://github.com/user-attachments/assets/dcc11924-b2b2-47ce-90ee-c3efd1d38b14" />
+<img width="800" height="1777" alt="breathing-vid-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/0ea0dbab-6d73-49eb-bce8-b33e73a71cda" />
 
 - `SHAPING`
+  <img width="800" height="1777" alt="shaping-vid-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/3e1b9df8-f539-4561-b49e-102126c12dce" />
+
 
 Supported `OrbSize` values:
 - `OrbSize.Large`
