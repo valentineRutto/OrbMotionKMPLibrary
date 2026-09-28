@@ -44,6 +44,8 @@ Supported `OrbState` values:
 
 - `SEARCHING`
 - `COMPOSING`
+  <img width="240" height="536" alt="composing" src="https://github.com/user-attachments/assets/6aaa2a5e-1e62-4a1b-8aa3-38b1b311bb42" />
+
 - `SOLVING`
 - `LISTENING`
 - `WORKING`
