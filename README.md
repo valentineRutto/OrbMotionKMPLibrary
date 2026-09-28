@@ -50,6 +50,8 @@ Supported `OrbState` values:
 - `CONNECTING`
 - `WEAVING`
 - `BREATHING`
+  <img width="240" height="534" alt="breathing" src="https://github.com/user-attachments/assets/dcc11924-b2b2-47ce-90ee-c3efd1d38b14" />
+
 - `SHAPING`
 
 Supported `OrbSize` values:
