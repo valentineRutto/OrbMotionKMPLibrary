@@ -1,6 +1,10 @@
-# OrbsMotion-kmp
+# OrbMotion
 
-[OrbsMotion](https://central.sonatype.com/artifact/io.github.valentinerutto/orbmotion) is a **Kotlin Compose Multiplatform/shared compose ui** animation library for expressive AI and agent activity states, bringing “thinking” animations to Android and iOS with customizable motion, speed, size, and color.
+**[OrbsMotion](https://central.sonatype.com/artifact/io.github.valentinerutto/orbmotion) is a Kotlin Multiplatform (KMP) animation library built with Compose Multiplatform, providing shared, expressive UI animations for Android and iOS.**
+
+It provides customizable animated orbs for AI assistants, agents, and interactive interfaces, with support for different states, sizes, speeds, and colors.
+
+Build once with shared Compose UI and reuse the same animations across your Android and iOS applications.
 
 ## Installation
 
