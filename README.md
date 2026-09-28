@@ -4,11 +4,29 @@ Animated, monochrome “thinking orb” indicators for AI and agent UIs — buil
 
 ## Installation
 
-Add the library to your Gradle module (Kotlin DSL):
+[OrbsMotion-kmp](https://central.sonatype.com/artifact/io.github.valentinerutto/orbmotion) is published to Maven Central.
 
+For  Kotlin Multiplatform projects, add the dependency to your `commonMain` source set:
+
+```kotlin
+
+
+[versions]
+orbmotion = "1.0.1"
+
+[libraries]
+orbmotion = { module = "io.github.valentinerutto:orbmotion", version.ref = "orbmotion" }
+
+kotlin {
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.orbmotion)
+        }
+    }
+}
 ```
-implementation("io.github.valentinerutto:orbmotion:1.0.1")
-```
+
+
 ## UI Preview of Supported `OrbState` values:
 
 | | | |
