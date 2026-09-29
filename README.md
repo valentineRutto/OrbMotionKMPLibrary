@@ -1,4 +1,6 @@
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.valentinerutto/orbmotion?logo=apachemaven&label=Maven%20Central)](https://central.sonatype.com/artifact/io.github.valentinerutto/orbmotion)
+[![GitHub stars](https://img.shields.io/github/stars/valentineRutto/OrbMotionKMPLibrary?style=social)](https://github.com/valentineRutto/OrbMotionKMPLibrary)
+
 
 # OrbMotion
 
