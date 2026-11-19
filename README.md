@@ -1,6 +1,6 @@
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.valentinerutto/orbmotion?logo=apachemaven&label=Maven%20Central)](https://central.sonatype.com/artifact/io.github.valentinerutto/orbmotion)
 [![GitHub stars](https://img.shields.io/github/stars/valentineRutto/OrbMotionKMPLibrary?style=social)](https://github.com/valentineRutto/OrbMotionKMPLibrary)
-[klibs.io](https://klibs.io/project/valentineRutto/OrbMotionKMPLibrary)
+
 
 # OrbMotion
 
@@ -19,7 +19,7 @@ https://github.com/user-attachments/assets/4bb89db1-187d-4cb7-a12c-a389ee922e28
 
 ## Installation
 
-[OrbMotion](https://central.sonatype.com/artifact/io.github.valentinerutto/orbmotion) is published to Maven Central.
+[OrbMotion](https://central.sonatype.com/artifact/io.github.valentinerutto/orbmotion) is published to Maven Central and on klibs.io [klibs.io link ](https://klibs.io/project/valentineRutto/OrbMotionKMPLibrary)
 
 For  Kotlin Multiplatform projects, add the dependency to your `commonMain` source set:
 
